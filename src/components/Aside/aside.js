@@ -6,7 +6,9 @@ import "./aside.css";
 
 const Aside = () => (
   <aside>
-    <p>© Copyright<b>Jonathan Cardoso</b>2020. All rights reserved.</p>
+    <div>
+      <p>© Copyright<b>Jonathan Cardoso</b>2020. All rights reserved.</p>
+    </div>
   </aside>
 );
 

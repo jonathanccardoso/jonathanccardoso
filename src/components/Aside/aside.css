@@ -10,3 +10,10 @@ aside {
   text-align: center;
   width: 70%;
 }
+
+@media screen and (max-width: 864px) {
+  aside {
+    margin: 0 auto;
+    width: 95%;
+  }
+}
