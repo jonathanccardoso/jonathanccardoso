@@ -12,7 +12,13 @@ Technologies used:
 <!-- - [Algolia Instant Search](https://www.algolia.com/products/instantsearch/) -->
 - [Netlify CMS](https://www.netlifycms.org/)
 - [Git Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+    - Using rules
+        - Feature branches
+        - Release branches
+        - Hotfix branches
+        - Support branches
+        - Version tag prefix
 
-Contributings
+How to contribute?
 
 - [CONTRIBUTING.md](/CONTRIBUTING.md)
