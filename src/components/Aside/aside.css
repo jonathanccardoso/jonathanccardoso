@@ -1,0 +1,12 @@
+aside {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  
+  font-size: 0.7rem;
+  bottom: 4rem;
+  text-align: center;
+  width: 70%;
+}
