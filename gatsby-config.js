@@ -1,8 +1,19 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Jonathan Cardoso`,
+    siteUrl: `https://jonathanccardoso.netlify.app/`,
+    description: `Full Stack development. Living and learning!.`,
+    author: `@jonathanccardoso`,
+    social: [
+      {
+        name: `github`,
+        url: `https://github.com/jonathanccardoso/`,
+      },
+      {
+        name: `linkedin`,
+        url: `https://www.linkedin.com/in/jonathanccardoso/`,
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -30,5 +41,24 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "YOUR_GOOGLE_ANALYTICS_TRACKING_ID",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        displayName: false
+      },
+    },
+    {
+      resolve: `gatsby-plugin-page-creator`,
+      options: {
+        path: `${__dirname}/src/settings/pages`,
+        ignore: [`**/styles.js`],
+      },
+    },
   ],
 }
