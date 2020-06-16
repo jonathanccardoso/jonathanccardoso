@@ -44,13 +44,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "YOUR_GOOGLE_ANALYTICS_TRACKING_ID",
+        trackingId: "UA-105149098-2",
       },
     },
     {
       resolve: `gatsby-plugin-styled-components`,
       options: {
-        displayName: false
+        displayName: false,
       },
     },
     {

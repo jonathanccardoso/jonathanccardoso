@@ -617,6 +617,9 @@ pre tt:before,
 pre tt:after {
   content: "";
 }
+.hidden {
+  display: none;
+}
 @media only screen and (max-width: 480px) {
   html {
     font-size: 100%;
