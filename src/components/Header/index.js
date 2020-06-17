@@ -1,16 +1,15 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
-import { Link } from "react-router-dom"
 
-import Container from "components/Container"
+import Container from "../Container"
 import * as Styled from "./styled"
 
 const Header = ({ siteTitle }) => (
   <Styled.Header>
     <Container>
       <Styled.Main>
-        <Link to="/">Jonathan Cardoso</Link>
+        <Link to="/">{siteTitle}</Link>
         <Styled.Nav>
           <input type="checkbox" id="nav" className="hidden" />
           <label for="nav" className="nav-btn" id="labelNav">
@@ -21,16 +20,16 @@ const Header = ({ siteTitle }) => (
           <div className="nav-wrapper">
             <ul>
               <li>
-                <a href="#about">About</a>
+                <Link to="#about">About</Link>
               </li>
               <li>
-                <a href="#services">Services</a>
+                <Link to="#services">Services</Link>
               </li>
               <li>
-                <a href="#portfolio">Portfolio</a>
+                <Link to="#portfolio">Portfolio</Link>
               </li>
               <li>
-                <a href="blog.html">Blog</a>
+                <Link to="blog.html">Blog</Link>
               </li>
             </ul>
           </div>
