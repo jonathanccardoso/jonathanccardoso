@@ -11,7 +11,7 @@ const Header = ({ siteTitle }) => (
       <Styled.Main>
         <Link to="/">{siteTitle}</Link>
         <Styled.Nav>
-          <input type="checkbox" id="nav" className="hidden" />
+          <Styled.Input type="checkbox" id="nav" />
           <label for="nav" className="nav-btn" id="labelNav">
             <i></i>
             <i></i>

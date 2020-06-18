@@ -51,6 +51,11 @@ export const Nav = styled.div`
     transition: 0.7s;
   }
 
+  ul li a:hover {
+    text-decoration: none;
+    color: #f2769f;
+  }
+
   #nav:checked + .nav-btn {
     transform: rotate(45deg);
   }
@@ -81,4 +86,8 @@ export const Nav = styled.div`
     opacity: 1;
     transform: translateX(0);
   }
+`
+
+export const Input = styled.input`
+  display: none;
 `
