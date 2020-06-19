@@ -1,19 +1,15 @@
 module.exports = {
   siteMetadata: {
     title: `Jonathan Cardoso`,
+    author: `@jonathanccardoso`,
     siteUrl: `https://jonathanccardoso.netlify.app/`,
     description: `Full Stack development. Living and learning!.`,
-    author: `@jonathanccardoso`,
-    social: [
-      {
-        name: `github`,
-        url: `https://github.com/jonathanccardoso/`,
-      },
-      {
-        name: `linkedin`,
-        url: `https://www.linkedin.com/in/jonathanccardoso/`,
-      },
-    ],
+    social: {
+      linkedinLink: `https://www.linkedin.com/in/jonathanccardoso/`,
+      githubLink: `https://github.com/jonathanccardoso`,
+      mediumLink: `https://medium.com/jonathanccardoso`,
+      devtoLink: `https://dev.to/jonathanccardoso/`,
+    },
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components"
 
 export default createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap')
+  @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
 
   * {
     margin: 0;
@@ -55,7 +55,6 @@ export default createGlobalStyle`
 
   p {
     margin-top: 0;
-    margin-bottom: 1rem;
   }
 
   a {
