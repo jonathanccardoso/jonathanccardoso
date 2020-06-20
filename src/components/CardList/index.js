@@ -2,9 +2,8 @@ import React from "react"
 import { Link } from "gatsby"
 
 import * as Styled from "./styled"
-import CardList from "../CardList"
 
-const CardList = ({ icon, image, title, description, year }) => {
+const CardList = ({ icon, image, title, description, year }) =>
   icon !== null ? (
     <Styled.CardItem>
       <Styled.CardItemIcon title="web hosting" icon={icon} />
@@ -33,5 +32,5 @@ const CardList = ({ icon, image, title, description, year }) => {
       </Link>
     </Styled.BoxShadowItem>
   )
-}
+
 export default CardList
