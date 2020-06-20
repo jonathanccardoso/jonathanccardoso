@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 import * as Styled from "./styled"
 
-const CardList = ({ icon, image, title, description, year }) =>
+const CardList = ({ icon, image, title, description, year }) => {
   icon !== null ? (
     <Styled.CardItem>
       <Styled.CardItemIcon title="web hosting" icon={icon} />
@@ -32,5 +32,6 @@ const CardList = ({ icon, image, title, description, year }) =>
       </Link>
     </Styled.BoxShadowItem>
   )
+}
 
 export default CardList
