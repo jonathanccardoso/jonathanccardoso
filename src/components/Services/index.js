@@ -10,7 +10,7 @@ const Services = () => (
       <Styled.SectionTitle>Services</Styled.SectionTitle>
       <Styled.Main>
         <CardList
-          icon="laptop"
+          icon="Github"
           title="Web Applications"
           description="Development using the latest technologies in the market"
         />

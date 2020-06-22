@@ -1,7 +1,8 @@
 import styled from "styled-components"
 import media from "styled-media-query"
 
-import { Github } from "styled-icons/fa-brands"
+// import { Github } from "styled-icons/fa-brands"
+import * as Image from "styled-icons/fa-brands"
 
 const Icon = `
   height: 5rem;
@@ -33,14 +34,7 @@ export const CardItem = styled.div`
   }
 `
 
-// export const CardItemIcon = styled(Github).attrs(props => ({
-//   title: props.title,
-//   icon: props.icon,
-// }))`
-//   ${Icon}
-// `
-
-export const CardItemIcon = styled.svg.attrs(props => ({
+export const CardItemIcon = styled(Image.Github).attrs(props => ({
   title: props.title,
   icon: props.icon,
 }))`

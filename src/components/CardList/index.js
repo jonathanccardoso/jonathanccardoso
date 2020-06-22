@@ -2,17 +2,22 @@ import React from "react"
 import { Link } from "gatsby"
 
 import * as Styled from "./styled"
+import { Github } from "styled-icons/fa-brands"
+
+const iconTypes = {
+  Github,
+}
 
 const CardList = ({ icon, image, title, link, description, year }) => {
+  const Iconfa = iconTypes[icon]
+
   return (
     <>
       {icon ? (
         <Styled.CardItem>
           <Styled.CardItemIcon title={title} icon={icon} />
           <Styled.CardItemTitle>{title}</Styled.CardItemTitle>
-          <Styled.CardItemDescription>
-            {description}
-          </Styled.CardItemDescription>
+          <Styled.CardItemDescription>{description}</Styled.CardItemDescription>
         </Styled.CardItem>
       ) : (
         <Styled.BoxShadowItem>
