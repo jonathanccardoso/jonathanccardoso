@@ -49,4 +49,9 @@ export const ProfileTitle = styled.p`
   text-align: justify;
   font-weight: bold;
   font-size: 15px;
+  margin-bottom: 1rem;
+`
+
+export const ProfileDescription = styled.p`
+  margin-bottom: 1rem;
 `

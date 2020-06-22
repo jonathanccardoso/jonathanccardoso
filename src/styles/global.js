@@ -49,8 +49,8 @@ export default createGlobalStyle`
     font-size: 1.75rem;
     font-weight: 400;
 
-    margin-top: 1.5rem !important;
-    margin-bottom: 1rem !important;
+    margin-top: 2.5rem !important;
+    margin-bottom: 2rem !important;
   }
 
   p {

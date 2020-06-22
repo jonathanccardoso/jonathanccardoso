@@ -1,13 +1,12 @@
 import styled from "styled-components"
 import media from "styled-media-query"
 
-import { Github, LinkedinIn, MediumM, Dev } from "styled-icons/fa-brands"
+import { Github } from "styled-icons/fa-brands"
 
 const Icon = `
-  display: block;
-  height: 4rem;
-  width: 4rem;
-  margin-bottom: 1rem;
+  height: 5rem;
+  width: 5rem;
+  text-align: center;
 
   ${media.lessThan("medium")`
     margin: 2rem;
@@ -34,7 +33,14 @@ export const CardItem = styled.div`
   }
 `
 
-export const CardItemIcon = styled(Github).attrs(props => ({
+// export const CardItemIcon = styled(Github).attrs(props => ({
+//   title: props.title,
+//   icon: props.icon,
+// }))`
+//   ${Icon}
+// `
+
+export const CardItemIcon = styled.svg.attrs(props => ({
   title: props.title,
   icon: props.icon,
 }))`
@@ -43,6 +49,7 @@ export const CardItemIcon = styled(Github).attrs(props => ({
 
 export const CardItemTitle = styled.h4`
   font-size: 1.5rem;
+  margin: 1rem;
 `
 
 export const CardItemDescription = styled.p``

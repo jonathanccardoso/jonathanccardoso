@@ -33,7 +33,6 @@ export const Title = styled.h1`
   padding: 2rem;
 `
 
-
 export const Description = styled.p.attrs(props => ({
   class: props.className,
 }))`

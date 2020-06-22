@@ -8,6 +8,7 @@ export const SectionServices = styled.section.attrs(props => ({
   padding-top: 2%;
   padding-bottom: 2%;
   text-align: justify;
+  background-color: #f2f2f2;
 `
 
 export const SectionTitle = styled.h3`

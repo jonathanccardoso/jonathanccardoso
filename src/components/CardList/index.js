@@ -3,16 +3,15 @@ import { Link } from "gatsby"
 
 import * as Styled from "./styled"
 
-const CardList = ({ icon, image, title, description, year }) => {
+const CardList = ({ icon, image, title, link, description, year }) => {
   return (
     <>
       {icon ? (
         <Styled.CardItem>
-          <Styled.CardItemIcon title="web hosting" icon={icon} />
-          <Styled.CardItemTitle>Web Hosting</Styled.CardItemTitle>
+          <Styled.CardItemIcon title={title} icon={icon} />
+          <Styled.CardItemTitle>{title}</Styled.CardItemTitle>
           <Styled.CardItemDescription>
-            Your site hosted on the best data centers. We guarantee security and
-            stability.
+            {description}
           </Styled.CardItemDescription>
         </Styled.CardItem>
       ) : (
