@@ -1,0 +1,20 @@
+[
+  {
+    "imageSrc": "logo-mobister.png",
+    "link": "https://www.mobister.com.br/",
+    "description": "Specialist in design and production of digital solutions, Mobister develops products focused on UX.",
+    "year": "2018"
+  },
+  {
+    "imageSrc": "logo-easydiet.png",
+    "link": "https://easydiet.com.br/",
+    "description": "A complete system focused on nutrition to assist the nutritionist in daily consultations.",
+    "year": "2019"
+  },
+  {
+    "imageSrc": "logo-diatinf.png",
+    "link": "http://diatinf.ifrn.edu.br/doku.php/",
+    "description": "An Academic Council for Management and Information Technology (DIATINF) with more than 30 years of existence.",
+    "year": "2019"
+  }
+]

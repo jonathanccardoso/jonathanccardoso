@@ -40,7 +40,6 @@
 
 - Hosted on Netlify
 - Prettier for linting
-- Bootstrap v4
 
 ## Contributings
 

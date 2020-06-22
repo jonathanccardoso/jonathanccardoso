@@ -28,9 +28,9 @@ const Header = ({ siteTitle }) => (
               <li>
                 <Link to="#portfolio">Portfolio</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="blog.html">Blog</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </Styled.Nav>

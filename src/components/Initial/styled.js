@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-import img from "../../images/background-portfolio.jpg"
+import img from "../../../content/assets/background-portfolio.jpg"
 
 export const SectionInitial = styled.section.attrs(props => ({
   id: props.id,

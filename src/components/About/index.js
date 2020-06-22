@@ -11,7 +11,7 @@ const About = () => (
         <Styled.ProfileImage>
           <img
             alt="Profile Jonathan"
-            src="../../images/profile.jpg"
+            src="../../../content/assets/profile.jpg"
           />
         </Styled.ProfileImage>
         <Styled.Profile>

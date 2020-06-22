@@ -2,15 +2,9 @@ import React from "react"
 import { Link } from "gatsby"
 
 import * as Styled from "./styled"
-import { Github } from "styled-icons/fa-brands"
-
-const iconTypes = {
-  Github,
-}
+import * as Image from "styled-icons/fa-brands"
 
 const CardList = ({ icon, image, title, link, description, year }) => {
-  const Iconfa = iconTypes[icon]
-
   return (
     <>
       {icon ? (
