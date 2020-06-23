@@ -22,6 +22,8 @@ export const SectionTitle = styled.h3`
 
 export const Main = styled.div`
   display: flex;
+  flex-direction: row;
+
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;

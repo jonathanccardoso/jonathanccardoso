@@ -1,22 +1,40 @@
 import React from "react"
+import { useStaticQuery, graphql } from "gatsby"
 
 import * as Styled from "./styled"
 import Container from "../Container"
-import CardList from "../CardList"
+import LabList from "../LabList"
 
-const Portfolio = () => (
-  <Styled.SectionPortfolio id="portfolio">
-    <Container>
-      <Styled.SectionTitle>Portfolio</Styled.SectionTitle>
-      <Styled.Main>
-        <CardList
-          image="mobister"
-          description="Specialist in design and production of digital solutions, Mobister develops products focused on UX."
-          year="2018"
-        />
-      </Styled.Main>
-    </Container>
-  </Styled.SectionPortfolio>
-)
+const portfolioJsonQuery = graphql`
+  query {
+    allPortfolioJson {
+      edges {
+        node {
+          id
+          link
+          year
+          description
+          imageSrc {
+            relativePath
+          }
+        }
+      }
+    }
+  }
+`
 
+const Portfolio = () => {
+  const data = useStaticQuery(portfolioJsonQuery)
+
+  return (
+    <Styled.SectionPortfolio id="portfolio">
+      <Container>
+        <Styled.SectionTitle>Portfolio</Styled.SectionTitle>
+        <Styled.Main>
+          <LabList content={data.allPortfolioJson.edges} />
+        </Styled.Main>
+      </Container>
+    </Styled.SectionPortfolio>
+  )
+}
 export default Portfolio
