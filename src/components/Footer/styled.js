@@ -23,7 +23,7 @@ export const Footer = styled.div`
   a {
     color: white;
   }
-  div a {
+  div a:nth-child(n + 2) {
     margin-left: 2rem;
   }
   div a:hover {

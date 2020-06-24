@@ -28,8 +28,12 @@ export default createGlobalStyle`
   }
 
   img {
+    display: block;
+  	height: auto;
     width: 55%;
+  	max-width: 100%;
   }
+
   p,
   span {
     font-size: 16px;

@@ -3,12 +3,31 @@ import media from "styled-media-query"
 
 import Img from "gatsby-image"
 
+export const BoxShadowItem = styled.div`
+  text-align: center;
+  margin: 1rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
+  width: 50%;
+
+  &:focus,
+  &:hover {
+    cursor: pointer;
+    div {
+      color: #f2769f;
+    }
+  }
+
+  ${media.lessThan("medium")`
+    width: 80%;
+  `}
+`
+
 export const Image = styled(Img).attrs(props => ({
   alt: props.title,
 }))`
-  width: 55% !important;
+  display: block;
   max-width: 100%;
-  height: auto;
+  /* margin: 2rem; */
 `
 
 export const Link = styled.a.attrs(props => ({
@@ -18,27 +37,13 @@ export const Link = styled.a.attrs(props => ({
   rel: "noopener noreferrer",
 }))``
 
-export const BoxShadowItem = styled.div`
-  text-align: center;
-  margin: 1rem;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
-
-  &:focus,
-  &:hover {
-    cursor: pointer;
-  }
-`
-
 export const BoxShadowItemBody = styled.div`
   padding: 1.25rem;
   color: #343a40;
-
-  &:focus,
-  &:hover {
-    color: #f2769f;
-  }
 `
 
-export const BoxShadowItemDescription = styled.p``
+export const BoxShadowItemDescription = styled.p`
+  margin: 1rem;
+`
 
 export const BoxShadowItemYear = styled.small``

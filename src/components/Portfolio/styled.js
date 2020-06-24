@@ -24,11 +24,9 @@ export const Main = styled.div`
   display: flex;
   flex-direction: row;
 
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1rem;
   ${media.lessThan("medium")`
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   `}
 `
