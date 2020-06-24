@@ -45,6 +45,7 @@ export default createGlobalStyle`
   h4,
   h5 {
     font-weight: 400;
+    line-height: 1.1;
   }
 
   section h3 {

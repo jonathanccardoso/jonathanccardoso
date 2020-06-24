@@ -1,8 +1,9 @@
 import React from "react"
 
-import * as Styled from "./styled"
 import Container from "../Container"
 import CardList from "../CardList"
+
+import * as Styled from "./styled"
 
 const Services = () => (
   <Styled.SectionServices id="services">
@@ -13,22 +14,9 @@ const Services = () => (
           icon="Github"
           title="Web Applications"
           description="Development using the latest technologies in the market"
-        />
-        <CardList
-          icon="laptop"
-          title="Web Applications"
-          description="Development using the latest technologies in the market"
-        />
-        <CardList
-          icon="laptop"
-          title="Web Applications"
-          description="Development using the latest technologies in the market"
-        />
-        <CardList
-          icon="laptop"
-          title="Web Applications"
-          description="Development using the latest technologies in the market"
-        />
+        >
+          <Styled.IconLaptop />
+        </CardList>
       </Styled.Main>
     </Container>
   </Styled.SectionServices>

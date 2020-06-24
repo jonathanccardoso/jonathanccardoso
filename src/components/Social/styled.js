@@ -7,6 +7,7 @@ const Icon = `
   display: block;
   height: 2rem;
   width: 2rem;
+
   ${media.lessThan("medium")`
     margin: 2rem;
   `}
@@ -14,6 +15,7 @@ const Icon = `
 
 export const Social = styled.div`
   display: flex;
+  
   ${media.lessThan("medium")`
     padding-bottom: 1rem;
   `}

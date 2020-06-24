@@ -43,7 +43,7 @@ export const CardItemIcon = styled(Image.Github).attrs(props => ({
 
 export const CardItemTitle = styled.h4`
   font-size: 1.5rem;
-  margin: 1rem;
+  margin-bottom: 1rem;
 `
 
 export const CardItemDescription = styled.p``

@@ -2,6 +2,18 @@ import styled from "styled-components"
 
 import media from "styled-media-query"
 
+import { Github } from "styled-icons/fa-brands"
+
+const Icon = `
+  height: 5rem;
+  width: 5rem;
+  text-align: center;
+
+  ${media.lessThan("medium")`
+    margin: 2rem;
+  `}
+`
+
 export const SectionServices = styled.section.attrs(props => ({
   id: props.id,
 }))`
@@ -27,6 +39,7 @@ export const Main = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 1rem;
+
   ${media.lessThan("medium")`
     justify-content: center;
   `}
@@ -50,4 +63,11 @@ export const CardList = styled.div`
     box-shadow: 2px 8px 100px rgba(0, 0, 0, 0.15);
     transform: translate3D(0, -8px, 0);
   }
+`
+
+export const IconLaptop = styled(Github).attrs(props => ({
+  title: props.title,
+  icon: props.icon,
+}))`
+  ${Icon}
 `
