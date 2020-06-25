@@ -1,5 +1,7 @@
 import styled from "styled-components"
 
+import media from "styled-media-query"
+
 import img from "../../../content/assets/background-portfolio.jpg"
 
 export const SectionInitial = styled.section.attrs(props => ({
@@ -12,15 +14,19 @@ export const SectionInitial = styled.section.attrs(props => ({
   padding: 8rem 1rem;
   color: white;
   text-align: center;
-  height: 80vh;
+  height: 100vh;
+
+  ${media.lessThan("medium")`
+    height: 85vh;
+  `}
 `
 
 export const ContainerInitial = styled.div`
   max-width: 40rem;
-
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  /* padding-right: 15px;
+  padding-left: 15px; */
+  padding: 1rem;
 
   position: relative;
   margin-left: auto;
@@ -33,9 +39,7 @@ export const Title = styled.h1`
   padding: 2rem;
 `
 
-export const Description = styled.p.attrs(props => ({
-  class: props.className,
-}))`
+export const Description = styled.p`
   font-size: 1.25rem;
   font-weight: 300;
 
@@ -59,7 +63,7 @@ export const Description = styled.p.attrs(props => ({
 `
 
 export const Button = styled.a`
-  margin-top: 1rem;
+  margin-top: 2rem;
   background-image: none;
 
   background-color: #343a40;

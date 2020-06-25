@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components"
 
+import media from "styled-media-query"
+
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
 
@@ -28,10 +30,10 @@ export default createGlobalStyle`
   }
 
   img {
-    display: block;
+    /* display: block;
   	height: auto;
     width: 55%;
-  	max-width: 100%;
+  	max-width: 100%; */
   }
 
   p,
@@ -47,15 +49,21 @@ export default createGlobalStyle`
     font-weight: 400;
     line-height: 1.1;
   }
-
+  
   section h3 {
     text-align: center;
     text-transform: uppercase;
     font-size: 1.75rem;
-    font-weight: 400;
+    
+    color: #f2769f;
+    font-weight: 600 !important;
 
-    margin-top: 2.5rem !important;
+    margin-top: 3.5rem !important;
     margin-bottom: 2rem !important;
+    
+    ${media.lessThan("medium")`
+      margin-top: 4.5rem !important;
+    `}
   }
 
   p {

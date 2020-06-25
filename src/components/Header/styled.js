@@ -2,7 +2,12 @@ import styled from "styled-components"
 import media from "styled-media-query"
 
 export const Header = styled.div`
-  position: relative;
+  /* position: relative; */
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 3;
+
   padding: 2.3rem;
   color: white;
   background-color: #343a40;

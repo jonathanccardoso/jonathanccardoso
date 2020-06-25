@@ -2,6 +2,8 @@ import styled from "styled-components"
 
 import media from "styled-media-query"
 
+import Img from "gatsby-image"
+
 export const SectionAbout = styled.section.attrs(props => ({
   id: props.id,
 }))`
@@ -23,6 +25,7 @@ export const Title = styled.h3`
 export const ScrollProfile = styled.div`
   display: flex;
   justify-content: space-evenly;
+
   ${media.lessThan("medium")`
     justify-content: center;
     flex-direction: column;
@@ -30,11 +33,20 @@ export const ScrollProfile = styled.div`
   `}
 `
 
-export const ProfileImage = styled.div`
-  img {
-    border-radius: 50%;
-    width: 90%;
-  }
+export const Image = styled(Img).attrs({
+  alt: "Jonathan Cardoso",
+  "aria-label": "Jonathan Cardoso",
+})`
+  max-width: 200px;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+
+  ${media.lessThan("medium")`
+    margin-bottom: 1rem;
+  `}
 `
 
 export const Profile = styled.div`

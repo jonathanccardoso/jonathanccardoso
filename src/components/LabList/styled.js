@@ -25,9 +25,13 @@ export const BoxShadowItem = styled.div`
 export const Image = styled(Img).attrs(props => ({
   alt: props.title,
 }))`
+  max-width: 50%;
+  margin: 1rem 0 0 5rem;
   display: block;
-  max-width: 100%;
-  /* margin: 2rem; */
+
+  /* max-width: 200px; */
+  /* width: 100%; */
+  /* margin-left: 4rem; */
 `
 
 export const Link = styled.a.attrs(props => ({

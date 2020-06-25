@@ -2,11 +2,11 @@ import styled from "styled-components"
 
 import media from "styled-media-query"
 
-import { Github } from "styled-icons/fa-brands"
+import { Laptop, Tools, Rocket, Server } from "styled-icons/fa-solid"
 
 const Icon = `
-  height: 5rem;
-  width: 5rem;
+  height: 4rem;
+  width: 4rem;
   text-align: center;
 
   ${media.lessThan("medium")`
@@ -65,7 +65,28 @@ export const CardList = styled.div`
   }
 `
 
-export const IconLaptop = styled(Github).attrs(props => ({
+export const IconLaptop = styled(Laptop).attrs(props => ({
+  title: props.title,
+  icon: props.icon,
+}))`
+  ${Icon}
+`
+
+export const IconTools = styled(Tools).attrs(props => ({
+  title: props.title,
+  icon: props.icon,
+}))`
+  ${Icon}
+`
+
+export const IconRocket = styled(Rocket).attrs(props => ({
+  title: props.title,
+  icon: props.icon,
+}))`
+  ${Icon}
+`
+
+export const IconServer = styled(Server).attrs(props => ({
   title: props.title,
   icon: props.icon,
 }))`

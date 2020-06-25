@@ -1,23 +1,39 @@
 import React from "react"
+import { graphql, useStaticQuery } from "gatsby"
 
-import * as Styled from "./styled"
 import Container from "../Container"
+import * as Styled from "./styled"
+
+const Profile = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      placeholderImage: file(relativePath: { eq: "profile.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
+
+  return <Styled.Image fluid={data.placeholderImage.childImageSharp.fluid} />
+}
 
 const About = () => (
   <Styled.SectionAbout id="about">
     <Container>
       <Styled.Title>About</Styled.Title>
       <Styled.ScrollProfile>
-        <Styled.ProfileImage>
-          <img
-            alt="Profile Jonathan"
-            src="../../../content/assets/profile.jpg"
-          />
-        </Styled.ProfileImage>
+        <Profile />
         <Styled.Profile>
           <Styled.ProfileTitle>PROFILE</Styled.ProfileTitle>
-          <Styled.ProfileDescription>My name is Jonathan Cardoso.</Styled.ProfileDescription>
-          <Styled.ProfileDescription>I'm 21 years old. I'm an Systems Analyst.</Styled.ProfileDescription>
+          <Styled.ProfileDescription>
+            My name is Jonathan Cardoso.
+          </Styled.ProfileDescription>
+          <Styled.ProfileDescription>
+            I'm 21 years old. I'm an Systems Analyst.
+          </Styled.ProfileDescription>
           <Styled.ProfileDescription>
             Since the age of 12 I was already interested in codes. But the hobby
             was stronger and becoming a profession!
