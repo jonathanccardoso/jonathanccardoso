@@ -37,10 +37,8 @@ export const Image = styled(Img).attrs({
   alt: "Jonathan Cardoso",
   "aria-label": "Jonathan Cardoso",
 })`
-  max-width: 200px;
-  display: block;
+  max-width: 180px;
   border-radius: 50%;
-  object-fit: cover;
   width: 100%;
   height: 100%;
 

@@ -27,7 +27,7 @@ export const Main = styled.div`
   align-items: center;
 `
 
-export const Nav = styled.div`
+export const Nav = styled.nav`
   ul {
     float: right;
   }
@@ -94,10 +94,7 @@ export const Nav = styled.div`
   }
 
   ${media.lessThan("medium")`
-    .nav-wrapper a {
-      color: black;
-    }
-
+    
     .nav-wrapper {
       position: fixed;
       top: 0;
@@ -108,6 +105,11 @@ export const Nav = styled.div`
       background: #fff;
       opacity: 0;
       transition: all 0.2s ease;
+    }
+
+    .nav-wrapper a {
+      color: black;
+      display: none;
     }
 
     .nav-wrapper ul {

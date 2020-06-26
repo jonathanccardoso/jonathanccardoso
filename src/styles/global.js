@@ -81,4 +81,8 @@ export default createGlobalStyle`
   button:hover {
     background-color: #7f8386;
   }
+  
+  .hidden {
+    display: none !important;
+  }
 `

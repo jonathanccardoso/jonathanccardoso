@@ -29,9 +29,13 @@ export const Image = styled(Img).attrs(props => ({
   margin: 1rem 0 0 5rem;
   display: block;
 
-  /* max-width: 200px; */
   /* width: 100%; */
   /* margin-left: 4rem; */
+  /* max-width: 200px; */
+
+  ${media.lessThan("medium")`
+    margin-left: 4rem;
+  `}
 `
 
 export const Link = styled.a.attrs(props => ({
