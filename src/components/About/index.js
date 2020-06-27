@@ -26,6 +26,7 @@ const About = () => (
       <Styled.Title>About</Styled.Title>
       <Styled.ScrollProfile>
         <Profile />
+
         <Styled.Profile>
           <Styled.ProfileTitle>PROFILE</Styled.ProfileTitle>
           <Styled.ProfileDescription>

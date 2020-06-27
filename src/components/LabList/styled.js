@@ -33,7 +33,7 @@ export const Image = styled(Img).attrs(props => ({
   /* margin-left: 4rem; */
   /* max-width: 200px; */
 
-  ${media.lessThan("medium")`
+  ${media.lessThan("small")`
     margin-left: 4rem;
   `}
 `

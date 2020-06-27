@@ -1,7 +1,9 @@
 import React, { useEffect } from "react"
 
 import { Link } from "gatsby"
+
 import * as Styled from "./styled"
+import FadeEffect from "../FadeEffect"
 
 const Initial = () => {
   useEffect(() => {
@@ -22,11 +24,13 @@ const Initial = () => {
   return (
     <Styled.SectionInitial id="initial">
       <Styled.ContainerInitial>
-        <Styled.Title>Hi!</Styled.Title>
-        <Styled.Description>
-          I have been working as a Systems Analyst since 2017. I am passionate
-          about physical activities and enthusiastic about technology.
-        </Styled.Description>
+        <FadeEffect>
+          <Styled.Title>Hi!</Styled.Title>
+          <Styled.Description>
+            I have been working as a Systems Analyst since 2017. I am passionate
+            about physical activities and enthusiastic about technology.
+          </Styled.Description>
+        </FadeEffect>
         <Styled.Button>
           <Link to="#about">More About</Link>
         </Styled.Button>

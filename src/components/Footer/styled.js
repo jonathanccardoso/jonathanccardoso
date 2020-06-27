@@ -45,4 +45,8 @@ export const Main = styled.div`
 
 export const P = styled.p`
   font-size: 14px;
+
+  ${media.lessThan("small")`
+    font-size: 10px;
+  `}
 `

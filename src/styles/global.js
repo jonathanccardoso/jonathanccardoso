@@ -19,7 +19,7 @@ export default createGlobalStyle`
     scroll-behavior: smooth;
   }
   body {
-    font-family: Roboto, sans-serif;
+    font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     margin: 0;
     padding: 0;
     width: 100%;

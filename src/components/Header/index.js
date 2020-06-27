@@ -10,7 +10,6 @@ const Header = ({ siteTitle }) => {
 
   function handleSelectMenu() {
     setSelectedMenu(!selectedMenu)
-    console.log("selectedMenu", selectedMenu)
   }
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import * as Styled from "./styled"
 import Container from "../Container"
 import LabList from "../LabList"
+import FadeEffect from "../FadeEffect"
 
 const portfolioJsonQuery = graphql`
   query {
@@ -30,9 +31,11 @@ const Portfolio = () => {
     <Styled.SectionPortfolio id="portfolio">
       <Container>
         <Styled.SectionTitle>Portfolio</Styled.SectionTitle>
-        <Styled.Main>
-          <LabList content={data.allPortfolioJson.edges} />
-        </Styled.Main>
+        <FadeEffect>
+          <Styled.Main>
+            <LabList content={data.allPortfolioJson.edges} />
+          </Styled.Main>
+        </FadeEffect>
       </Container>
     </Styled.SectionPortfolio>
   )
