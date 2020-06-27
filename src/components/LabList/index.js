@@ -4,7 +4,6 @@ import PropTypes from "prop-types"
 import { graphql, useStaticQuery } from "gatsby"
 
 import * as Styled from "./styled"
-import FadeEffect from "../FadeEffect"
 
 const trackClickPortfolio = item => {
   ReactGA.event({
