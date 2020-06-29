@@ -7,7 +7,7 @@ import Services from "../components/Services"
 import Portfolio from "../components/Portfolio"
 import SEO from "../components/seo"
 
-const Index = () => (
+const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <Initial />
@@ -17,4 +17,4 @@ const Index = () => (
   </Layout>
 )
 
-export default Index
+export default IndexPage

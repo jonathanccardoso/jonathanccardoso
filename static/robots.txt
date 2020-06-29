@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://jonathanccardoso.netlify.app/sitemap.xml
