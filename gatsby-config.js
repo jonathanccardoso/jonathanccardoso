@@ -49,7 +49,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Jonathan Cardoso Site`,
-        short_name: `JCS`,
+        short_name: `jonathanccardoso`,
         start_url: `/`,
         background_color: `#343a40`,
         theme_color: `#343a40`,

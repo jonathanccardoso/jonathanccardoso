@@ -44,21 +44,23 @@ const PortfolioImg = ({ imageSrc }) => {
 const LabList = ({ content }) => {
   return (
     <>
-      {content.map(({ node }) => {
-        return (
-          <Styled.BoxShadowItem key={node.id}>
-            <Styled.Link href={node.link} onClick={() => trackClickPortfolio}>
-              <PortfolioImg imageSrc={node.imageSrc} />
-              <Styled.BoxShadowItemBody>
-                <Styled.BoxShadowItemDescription>
-                  {node.description}
-                </Styled.BoxShadowItemDescription>
-                <Styled.BoxShadowItemYear>{node.year}</Styled.BoxShadowItemYear>
-              </Styled.BoxShadowItemBody>
-            </Styled.Link>
-          </Styled.BoxShadowItem>
-        )
-      })}
+      {content
+        ? content.map(({ node }) => (
+            <Styled.BoxShadowItem key={node.id}>
+              <Styled.Link href={node.link} onClick={() => trackClickPortfolio}>
+                <PortfolioImg imageSrc={node.imageSrc} />
+                <Styled.BoxShadowItemBody>
+                  <Styled.BoxShadowItemDescription>
+                    {node.description}
+                  </Styled.BoxShadowItemDescription>
+                  <Styled.BoxShadowItemYear>
+                    {node.year}
+                  </Styled.BoxShadowItemYear>
+                </Styled.BoxShadowItemBody>
+              </Styled.Link>
+            </Styled.BoxShadowItem>
+          ))
+        : "Loading"}
     </>
   )
 }

@@ -18,18 +18,27 @@ const Services = () => (
           >
             <Styled.IconLaptop />
           </CardList>
+        </FadeEffect>
+
+        <FadeEffect>
           <CardList
             title="SEO and Website Updates"
             description="The priority in making it accessible to search engines"
           >
             <Styled.IconTools />
           </CardList>
+        </FadeEffect>
+
+        <FadeEffect>
           <CardList
             title="Landing Pages"
             description="Development of highly optimized pages, generating conversions for your company"
           >
             <Styled.IconRocket />
           </CardList>
+        </FadeEffect>
+
+        <FadeEffect>
           <CardList
             title="Web Hosting"
             description="Your site hosted on the best data centers. We guarantee security and stability"

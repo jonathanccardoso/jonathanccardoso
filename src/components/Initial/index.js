@@ -26,6 +26,8 @@ const Initial = () => {
       <Styled.ContainerInitial>
         <FadeEffect>
           <Styled.Title>Hi!</Styled.Title>
+        </FadeEffect>
+        <FadeEffect>
           <Styled.Description>
             I have been working as a Systems Analyst since 2017. I am passionate
             about physical activities and enthusiastic about technology.
