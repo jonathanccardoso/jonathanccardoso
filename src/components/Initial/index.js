@@ -1,7 +1,5 @@
 import React, { useEffect } from "react"
 
-import { Link } from "gatsby"
-
 import * as Styled from "./styled"
 import FadeEffect from "../FadeEffect"
 
@@ -33,7 +31,7 @@ const Initial = () => {
             about physical activities and enthusiastic about technology.
           </Styled.Description>
           <Styled.Button>
-            <Link to="#about">More About</Link>
+            <a href="#about">More About</a>
           </Styled.Button>
         </FadeEffect>
       </Styled.ContainerInitial>

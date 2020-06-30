@@ -94,7 +94,6 @@ export const Nav = styled.nav`
   }
 
   ${media.lessThan("medium")`
-    
     .nav-wrapper {
       position: fixed;
       top: 0;

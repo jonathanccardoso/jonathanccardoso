@@ -1,4 +1,3 @@
-import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React, { useEffect } from "react"
 
@@ -18,19 +17,20 @@ const Header = ({ siteTitle }) => {
       }
     }
 
-    let i = true
+    // let i = true
     labelNav.addEventListener("click", () => {
+      // console.log("labelNav", labelNav)
       linksA.forEach(function (text) {
         text.style.display = "block"
       })
 
-      if (i) {
-        document.querySelector("body").style.overflowY = "hidden"
-        i = false
-      } else {
-        document.querySelector("body").style.overflowY = "initial"
-        i = true
-      }
+      // if (i) {
+      //   document.querySelector("body").style.overflowY = "hidden"
+      //   i = false
+      // } else {
+      //   document.querySelector("body").style.overflowY = "initial"
+      //   i = true
+      // }
     })
   }, [])
 
@@ -38,7 +38,7 @@ const Header = ({ siteTitle }) => {
     <Styled.Header>
       <Container>
         <Styled.Main>
-          <Link to="/">{siteTitle}</Link>
+          <a href="/">{siteTitle}</a>
           <Styled.Nav>
             <Styled.Input type="checkbox" id="nav" />
             <label htmlFor="nav" className="nav-btn" id="labelNav">
@@ -49,17 +49,14 @@ const Header = ({ siteTitle }) => {
             <div className="nav-wrapper">
               <ul>
                 <li>
-                  <Link to="#about">About</Link>
+                  <a href="#about">About</a>
                 </li>
                 <li>
-                  <Link to="#services">Services</Link>
+                  <a href="#services">Services</a>
                 </li>
                 <li>
-                  <Link to="#portfolio">Portfolio</Link>
+                  <a href="#portfolio">Portfolio</a>
                 </li>
-                {/* <li>
-                <Link to="blog.html">Blog</Link>
-              </li> */}
               </ul>
             </div>
           </Styled.Nav>

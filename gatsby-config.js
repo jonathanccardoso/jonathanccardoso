@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Jonathan Cardoso`,
     author: `@jonathanccardoso`,
-    siteUrl: `https://jonathanccardoso.netlify.app`,
+    siteUrl: `https://jonathanccardoso.netlify.app/`,
     description: `Full Stack development. Living and learning!.`,
     social: {
       linkedinLink: `https://www.linkedin.com/in/jonathanccardoso/`,
@@ -12,7 +12,7 @@ module.exports = {
     },
   },
   plugins: [
-    // `gatsby-plugin-sitemap`,
+    `gatsby-plugin-sitemap`,
     `gatsby-transformer-json`,
     `gatsby-plugin-react-helmet`,
     {
@@ -45,42 +45,30 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `jonathanccardoso`,
-        short_name: `jonathanccardoso`,
-        start_url: `/`,
-        background_color: `#343a40`,
-        theme_color: `#343a40`,
-        display: `minimal-ui`,
-        icon: `content/assets/favicon-icon.png`,
-      },
-    },
-    `gatsby-plugin-offline`,
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     name: `jonathanccardoso`,
+    //     short_name: `jonathanccardoso`,
+    //     start_url: `/`,
+    //     background_color: `#343a40`,
+    //     theme_color: `#343a40`,
+    //     display: `minimal-ui`,
+    //     icon: `content/assets/favicon-icon.png`,
+    //   },
+    // },
+    // `gatsby-plugin-offline`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: "UA-105149098-2",
+        head: false
       },
     },
     {
       resolve: `gatsby-plugin-styled-components`,
       options: {
         displayName: false,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-page-creator`,
-      options: {
-        path: `${__dirname}/src/pages`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-page-creator`,
-      options: {
-        path: `${__dirname}/src/components`,
-        ignore: [`**/styled.js`],
       },
     },
   ],
