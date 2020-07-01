@@ -45,18 +45,18 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    // {
-    //   resolve: `gatsby-plugin-manifest`,
-    //   options: {
-    //     name: `jonathanccardoso`,
-    //     short_name: `jonathanccardoso`,
-    //     start_url: `/`,
-    //     background_color: `#343a40`,
-    //     theme_color: `#343a40`,
-    //     display: `minimal-ui`,
-    //     icon: `content/assets/favicon-icon.png`,
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `jonathanccardoso`,
+        short_name: `jonathanccardoso`,
+        start_url: `/`,
+        background_color: `#343a40`,
+        theme_color: `#343a40`,
+        display: `minimal-ui`,
+        icon: `content/assets/favicon-icon.png`,
+      },
+    },
     // `gatsby-plugin-offline`,
     {
       resolve: `gatsby-plugin-google-analytics`,

@@ -41,6 +41,14 @@
 - Hosted on Netlify
 - Prettier for linting
 
+## Scripts
+
+```console
+❯ yarn start
+❯ yarn develop
+❯ yarn build && yarn serve
+```
+
 ## Contributings
 
 - [CONTRIBUTING.md](/CONTRIBUTING.md)
