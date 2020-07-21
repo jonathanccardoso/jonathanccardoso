@@ -19,6 +19,7 @@ module.exports = {
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-json`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-offline`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -61,7 +62,6 @@ module.exports = {
         icon: `content/assets/favicon-icon.png`,
       },
     },
-    // `gatsby-plugin-offline`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
