@@ -1,4 +1,4 @@
-<h3><b>Hey, I'm Jonathan Cardoso!</b> 👋🏾</h2>
+<h2><b>Hey, I'm Jonathan Cardoso!</b> 👋🏾</h2>
 
 <p> Who likes to learn and share knowledge! a technology enthusiast.</p>
 
