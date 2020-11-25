@@ -2,7 +2,7 @@
 
 <p> Who likes to learn and share knowledge! a technology enthusiast.</p>
 
-- 🚀 Software Engineer | Front End Developer.
+- 🚀 Software Engineer | Front-End Developer.
 
 - 💻 Content Creator at [Medium](https://medium.com/jonathanccardoso) and [Dev.to](https://dev.to/jonathanccardoso).
 
