@@ -16,6 +16,9 @@
 ### Blogs posts
 
 <!-- BLOG-POST-LIST:START -->
+- [How to Develop a Portfolio using Gatsby](https://dev.to/jonathanccardoso/how-to-develop-a-portfolio-using-gatsby-2fjn)
+- [Python3 Challenge: Unraveling Web Scraping](https://dev.to/jonathanccardoso/python3-challenge-unraveling-web-scraping-4fjg)
+- [Become a Productive Programmer with VSCode](https://dev.to/jonathanccardoso/become-a-productive-programmer-with-vscode-3hid)
 <!-- BLOG-POST-LIST:END -->
 
 <h3 align="left">Connect with me:</h3>
