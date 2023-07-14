@@ -1,6 +1,6 @@
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
-})
+});
 
 module.exports = {
   siteMetadata: {
@@ -15,6 +15,9 @@ module.exports = {
       devtoLink: `https://dev.to/jonathanccardoso/`,
     },
   },
+  flags: {
+    PRESERVE_WEBPACK_CACHE: true,
+  },
   plugins: [
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-json`,
@@ -28,10 +31,10 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/static/assets`,
-        name: "uploads",
+        name: 'uploads',
       },
     },
     {
@@ -66,7 +69,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: process.env.API_ANALYTICS,
-        head: false
+        head: false,
       },
     },
     {
@@ -76,4 +79,4 @@ module.exports = {
       },
     },
   ],
-}
+};
