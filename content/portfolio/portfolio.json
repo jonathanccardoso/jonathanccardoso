@@ -6,15 +6,33 @@
     "year": "2018"
   },
   {
+    "imageSrc": "logo-incubatech.png",
+    "link": "https://incubatech.com.br/",
+    "description": "Software house, converting technology into knowledge.",
+    "year": "2019"
+  },
+  {
     "imageSrc": "logo-easydiet.png",
     "link": "https://easydiet.com.br/",
     "description": "A complete system focused on nutrition to assist the nutritionist in daily consultations.",
     "year": "2019"
   },
   {
+    "imageSrc": "logo-faceponto.png",
+    "link": "https://incubatech.faceponto.com.br/",
+    "description": "Smart time manager, optimizing the work of your human resources department.",
+    "year": "2019"
+  },
+  {
     "imageSrc": "logo-diatinf.jpeg",
-    "link": "http://diatinf.ifrn.edu.br/doku.php/",
+    "link": "https://diatinf.ifrn.edu.br/",
     "description": "An Academic Council for Management and Information Technology (DIATINF) with more than 30 years of existence.",
     "year": "2019"
+  },
+  {
+    "imageSrc": "logo-solarmarket.png",
+    "link": "https://business.solarmarket.com.br/login",
+    "description": "Solar energy business proposal generator using artificial intelligence.",
+    "year": "2021"
   }
 ]
