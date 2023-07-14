@@ -1,10 +1,10 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 
-import * as Styled from "./styled"
-import Container from "../Container"
-import LabList from "../LabList"
-import FadeEffect from "../FadeEffect"
+import * as Styled from './styled';
+import Container from '../Container';
+import LabList from '../LabList';
+import FadeEffect from '../FadeEffect';
 
 const portfolioJsonQuery = graphql`
   query {
@@ -22,10 +22,10 @@ const portfolioJsonQuery = graphql`
       }
     }
   }
-`
+`;
 
 const Portfolio = () => {
-  const data = useStaticQuery(portfolioJsonQuery)
+  const data = useStaticQuery(portfolioJsonQuery);
 
   return (
     <Styled.SectionPortfolio id="portfolio">
@@ -33,11 +33,12 @@ const Portfolio = () => {
         <Styled.SectionTitle>Portfolio</Styled.SectionTitle>
         <FadeEffect>
           <Styled.Main>
-            <LabList content={data.allPortfolioJson.edges} />
+            {data?.allPortfolioJson?.edges && <LabList content={data.allPortfolioJson.edges} />}
           </Styled.Main>
         </FadeEffect>
       </Container>
     </Styled.SectionPortfolio>
-  )
-}
-export default Portfolio
+  );
+};
+
+export default Portfolio;
