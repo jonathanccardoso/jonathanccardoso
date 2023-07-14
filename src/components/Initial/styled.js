@@ -1,8 +1,22 @@
-import styled from "styled-components"
+import styled from 'styled-components';
+import media from 'styled-media-query';
+import Img from 'gatsby-image';
 
-import media from "styled-media-query"
+import { ArrowDownCircleFill } from 'styled-icons/bootstrap';
 
-import img from "../../../content/assets/background-portfolio.jpg"
+import img from '../../../content/assets/background-portfolio.jpg';
+
+const Icon = `
+  display: block;
+  height: 3rem;
+  width: 3rem;
+  text-align: center;
+  color: #343a40;
+
+  ${media.lessThan('medium')`
+    margin: 2rem;
+  `}
+`;
 
 export const SectionInitial = styled.section.attrs(props => ({
   id: props.id,
@@ -14,30 +28,22 @@ export const SectionInitial = styled.section.attrs(props => ({
   padding: 8rem 1rem;
   color: white;
   text-align: center;
-  height: 100vh;
+  height: 90vh;
 
-  ${media.lessThan("medium")`
+  ${media.lessThan('medium')`
     height: 85vh;
   `}
-`
+`;
 
 export const ContainerInitial = styled.div`
   max-width: 40rem;
   width: 100%;
-  /* padding-right: 15px;
-  padding-left: 15px; */
   padding: 1rem;
 
   position: relative;
   margin-left: auto;
   margin-right: auto;
-`
-
-export const Title = styled.h1`
-  color: #f2769f;
-  font-size: 3.5rem;
-  padding: 2rem;
-`
+`;
 
 export const Description = styled.p`
   font-size: 1.25rem;
@@ -45,7 +51,7 @@ export const Description = styled.p`
 
   /* animations for this purpose type writter */
   ::after {
-    content: "|";
+    content: '|';
     margin-left: 5px;
     opacity: 1;
     animation: cursorEffect 0.7s infinite;
@@ -60,14 +66,11 @@ export const Description = styled.p`
       opacity: 0;
     }
   }
-`
+`;
 
 export const Button = styled.a`
-  margin-top: 2rem;
+  margin-top: 1rem;
   background-image: none;
-
-  background-color: #343a40;
-  color: white;
 
   display: inline-block;
   font-weight: 400;
@@ -76,19 +79,24 @@ export const Button = styled.a`
   white-space: nowrap;
   vertical-align: middle;
   user-select: none;
-  border: 1px solid transparent;
-  padding: 0.9rem 1rem;
-  font-size: 1.2rem;
-  border-radius: 0.25rem;
+`;
 
-  -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+export const Image = styled(Img).attrs({
+  alt: 'Jonathan Cardoso',
+  'aria-label': 'Jonathan Cardoso',
+})`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 
-  &:focus,
-  &:hover {
-    color: #f2769f !important;
-    border-color: #f2769f !important;
-    background-color: #343a40 !important;
-  }
-`
+  position: absolute;
+  max-width: 180px;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 2rem;
+`;
+
+export const ChevronDownIcon = styled(ArrowDownCircleFill)`
+  ${Icon}
+`;
