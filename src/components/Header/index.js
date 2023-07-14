@@ -1,38 +1,28 @@
-import PropTypes from "prop-types"
-import React, { useEffect } from "react"
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 
-import Container from "../Container"
-import * as Styled from "./styled"
+import Container from '../Container';
+import * as Styled from './styled';
 
 const Header = ({ siteTitle }) => {
   useEffect(() => {
-    const labelNav = document.querySelector("label#labelNav")
-    const links = document.querySelectorAll("nav > .nav-wrapper > ul > li > a")
+    const labelNav = document.querySelector('label#labelNav');
+    const links = document.querySelectorAll('nav > .nav-wrapper > ul > li > a');
 
-    const linksA = document.querySelectorAll(".nav-wrapper a")
+    const linksA = document.querySelectorAll('.nav-wrapper a');
 
     for (let x = 0; x < links.length; x++) {
       links[x].onclick = function () {
-        labelNav.click()
-      }
+        labelNav.click();
+      };
     }
 
-    // let i = true
-    labelNav.addEventListener("click", () => {
-      // console.log("labelNav", labelNav)
+    labelNav.addEventListener('click', () => {
       linksA.forEach(function (text) {
-        text.style.display = "block"
-      })
-
-      // if (i) {
-      //   document.querySelector("body").style.overflowY = "hidden"
-      //   i = false
-      // } else {
-      //   document.querySelector("body").style.overflowY = "initial"
-      //   i = true
-      // }
-    })
-  }, [])
+        text.style.display = 'block';
+      });
+    });
+  }, []);
 
   return (
     <Styled.Header>
@@ -63,15 +53,15 @@ const Header = ({ siteTitle }) => {
         </Styled.Main>
       </Container>
     </Styled.Header>
-  )
-}
+  );
+};
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
-}
+};
 
 Header.defaultProps = {
   siteTitle: ``,
-}
+};
 
-export default Header
+export default Header;

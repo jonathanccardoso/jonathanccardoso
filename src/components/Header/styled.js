@@ -1,8 +1,7 @@
-import styled from "styled-components"
-import media from "styled-media-query"
+import styled from 'styled-components';
+import media from 'styled-media-query';
 
 export const Header = styled.div`
-  /* position: relative; */
   position: fixed;
   width: 100%;
   top: 0;
@@ -19,13 +18,13 @@ export const Header = styled.div`
     font-weight: 700;
     letter-spacing: 0px;
   }
-`
+`;
 export const Main = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 export const Nav = styled.nav`
   ul {
@@ -93,7 +92,7 @@ export const Nav = styled.nav`
     transform: translateX(0);
   }
 
-  ${media.lessThan("medium")`
+  ${media.lessThan('medium')`
     .nav-wrapper {
       position: fixed;
       top: 0;
@@ -191,8 +190,8 @@ export const Nav = styled.nav`
       margin-top: 4px;
     }
   `}
-`
+`;
 
 export const Input = styled.input`
   display: none;
-`
+`;
