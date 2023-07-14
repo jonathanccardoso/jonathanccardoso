@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from 'styled-components';
 
-import media from "styled-media-query"
+import media from 'styled-media-query';
 
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
@@ -61,7 +61,7 @@ export default createGlobalStyle`
     margin-top: 3.5rem !important;
     margin-bottom: 2rem !important;
     
-    ${media.lessThan("medium")`
+    ${media.lessThan('medium')`
       margin-top: 4.5rem !important;
     `}
   }
@@ -85,4 +85,4 @@ export default createGlobalStyle`
   .hidden {
     display: none !important;
   }
-`
+`;

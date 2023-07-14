@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import media from "styled-media-query"
+import styled from 'styled-components';
+import media from 'styled-media-query';
 
 export const Footer = styled.div`
   padding-top: 2%;
@@ -29,7 +29,7 @@ export const Footer = styled.div`
   div a:hover {
     color: #f2769f;
   }
-`
+`;
 
 export const Main = styled.div`
   display: flex;
@@ -37,16 +37,16 @@ export const Main = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  ${media.lessThan("medium")`
+  ${media.lessThan('medium')`
     justify-content: center;
     flex-direction: column-reverse;
   `}
-`
+`;
 
 export const P = styled.p`
   font-size: 14px;
 
-  ${media.lessThan("small")`
+  ${media.lessThan('small')`
     font-size: 10px;
   `}
-`
+`;

@@ -1,10 +1,10 @@
-import React from "react"
+import React from 'react';
 
-import Container from "../Container"
-import CardList from "../CardList"
-import FadeEffect from "../FadeEffect"
+import Container from '../Container';
+import CardList from '../CardList';
+import FadeEffect from '../FadeEffect';
 
-import * as Styled from "./styled"
+import * as Styled from './styled';
 
 const Services = () => (
   <Styled.SectionServices id="services">
@@ -12,10 +12,7 @@ const Services = () => (
       <Styled.SectionTitle>Services</Styled.SectionTitle>
       <Styled.Main>
         <FadeEffect>
-          <CardList
-            title="Web Applications"
-            description="Development using the latest technologies in the market"
-          >
+          <CardList title="Web Applications" description="Development using the latest technologies in the market">
             <Styled.IconLaptop />
           </CardList>
         </FadeEffect>
@@ -49,6 +46,6 @@ const Services = () => (
       </Styled.Main>
     </Container>
   </Styled.SectionServices>
-)
+);
 
-export default Services
+export default Services;

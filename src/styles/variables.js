@@ -23,7 +23,7 @@ export const Color = {
   grayLighter: `#efefef`,
   grayWhite: `#f1f1f1`,
   yellow: `#e6af05`,
-}
+};
 
 // --------------------------------------------------
 // 2. Misc
@@ -31,8 +31,8 @@ export const Color = {
 
 export const BorderRadius = {
   box: `2px`,
-}
+};
 
 export const BoxShadow = {
   box: `0 1px 3px var(--boxShadow)`,
-}
+};
