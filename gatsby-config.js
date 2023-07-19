@@ -15,10 +15,8 @@ module.exports = {
       devtoLink: `https://dev.to/jonathanccardoso/`,
     },
   },
-  flags: {
-    PRESERVE_WEBPACK_CACHE: true,
-  },
   plugins: [
+    `gatsby-plugin-netlify`,
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-json`,
     `gatsby-plugin-react-helmet`,
