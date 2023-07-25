@@ -3,7 +3,7 @@
 
 - 🚀 Software Engineer | Full Stack Developer
 
-- 🌱 I’m currently learning **NextJS, NestJS, Typescript, Python, MicroServices, Docker, Redux, Animations, Styled Components and TailwindCSS**
+- 🌱 I’m currently learning **NextJS, NestJS, ReactNative, Typescript, Python, MicroServices, Docker, Redux, Animations, Styled Components and TailwindCSS**
 
 - 👨‍💻 All of my projects are available at [https://jonathanccardoso.netlify.app/](https://jonathanccardoso.netlify.app/)
 
