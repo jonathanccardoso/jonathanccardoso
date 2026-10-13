@@ -33,7 +33,6 @@ const c = homeCopy[lang].hero;
             {c.contact}
           </Button>
         </div>
-        <p class="status reveal" style="animation-delay: 240ms"><span class="dot" aria-hidden="true"></span>{c.status}</p>
       </div>
       <div class="photo reveal" style="animation-delay: 160ms">
         <Image src={profile} alt={c.photoAlt} width={320} height={320} loading="eager" densities={[1, 2]} />
@@ -81,21 +80,6 @@ const c = homeCopy[lang].hero;
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-3);
-  }
-  .status {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--color-text-subtle);
-  }
-  .dot {
-    flex: none;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: var(--radius-full);
-    background: var(--color-success);
-    box-shadow: 0 0 0 4px var(--color-success-glow);
   }
   .photo {
     justify-self: start;

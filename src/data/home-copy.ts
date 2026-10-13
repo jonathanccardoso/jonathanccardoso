@@ -14,7 +14,7 @@ export const resumeHref: string | undefined = (() => {
 export interface HomeCopy {
   title: string;
   description: string;
-  hero: { eyebrow: string; title: string; subtitle: string; work: string; resume: string; contact: string; status: string; photoAlt: string };
+  hero: { eyebrow: string; title: string; subtitle: string; work: string; resume: string; contact: string; photoAlt: string };
   proof: { label: string; items: { value: string; label: string }[] };
   tech: { eyebrow: string; title: string; description: string; groups: { name: string; items: string[] }[]; ai: string };
   experience: { eyebrow: string; title: string; description: string; cta: string; current: string };
@@ -56,7 +56,6 @@ export const homeCopy: Record<Lang, HomeCopy> = {
       work: 'Ver projetos',
       resume: 'Currículo',
       contact: 'Entrar em contato',
-      status: 'Aberto a oportunidades remotas com times globais. Fuso horário: Brasil (UTC−3).',
       photoAlt: 'Foto de Jonathan Cardoso',
     },
     proof: {
@@ -110,7 +109,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     },
     cta: {
       title: 'Vamos conversar?',
-      text: 'Aberto a oportunidades remotas com times globais. Fuso horário: Brasil (UTC−3).',
+      text: 'Envie uma mensagem sobre projetos, parcerias ou oportunidades.',
       button: 'Entrar em contato',
     },
   },
@@ -126,7 +125,6 @@ export const homeCopy: Record<Lang, HomeCopy> = {
       work: 'View projects',
       resume: 'Resume',
       contact: 'Get in touch',
-      status: 'Open to remote opportunities with global teams. Time zone: Brazil (UTC−3).',
       photoAlt: 'Photo of Jonathan Cardoso',
     },
     proof: {
@@ -180,7 +178,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     },
     cta: {
       title: "Let's talk",
-      text: 'Open to remote opportunities with global teams. Time zone: Brazil (UTC−3).',
+      text: 'Send a message about projects, partnerships or opportunities.',
       button: 'Get in touch',
     },
   },

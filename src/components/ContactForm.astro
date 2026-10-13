@@ -17,7 +17,6 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
 ---
 
 <Section pageTitle id="contact" eyebrow={c.eyebrow} title={c.heading} description={c.lead} narrow>
-  <p class="support">{c.support}</p>
 
   <form
     id="contact-form"
@@ -145,10 +144,6 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
 </script>
 
 <style>
-  .support {
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-6);
-  }
   form {
     display: grid;
     gap: var(--space-5);
