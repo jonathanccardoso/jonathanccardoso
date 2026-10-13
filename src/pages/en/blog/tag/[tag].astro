@@ -1,0 +1,14 @@
+---
+import BlogList from '../../../../components/blog/BlogList.astro';
+import { collectTags, getBlogPosts, slugifyTag } from '../../../../lib/content';
+const lang = 'en';
+export async function getStaticPaths() {
+  const all = await getBlogPosts('en');
+  return collectTags(all).map(({ tag, slug }) => ({
+    params: { tag: slug },
+    props: { all, tag, posts: all.filter((p) => p.data.tags.some((x) => slugifyTag(x) === slug)) },
+  }));
+}
+const { all, tag, posts } = Astro.props;
+---
+<BlogList {lang} {posts} allPosts={all} page={1} totalPages={1} base={`blog/tag/${slugifyTag(tag)}`} {tag} />

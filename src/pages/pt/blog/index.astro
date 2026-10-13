@@ -1,0 +1,8 @@
+---
+import BlogList from '../../../components/blog/BlogList.astro';
+import { getBlogPosts, POSTS_PER_PAGE } from '../../../lib/content';
+const lang = 'pt';
+const all = await getBlogPosts(lang);
+const totalPages = Math.max(1, Math.ceil(all.length / POSTS_PER_PAGE));
+---
+<BlogList {lang} posts={all.slice(0, POSTS_PER_PAGE)} allPosts={all} page={1} {totalPages} base="blog" />

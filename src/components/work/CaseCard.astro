@@ -1,0 +1,56 @@
+---
+import Card from '../Card.astro';
+import Tag from '../Tag.astro';
+import { entrySlug, type WorkItem } from '../../lib/content';
+import { localizedPath, type Lang } from '../../i18n';
+import { s } from '../../lib/strings';
+
+interface Props {
+  item: WorkItem;
+  lang: Lang;
+}
+const { item, lang } = Astro.props;
+const { title, summary, type, period, stack } = item.data;
+---
+
+<Card href={localizedPath(lang, `work/${entrySlug(item)}`)} title={title} as="li">
+  <p class="meta">
+    <span class="type">{s(lang, type === 'product' ? 'work.product' : 'work.employment')}</span>
+    {period && <span>{period}</span>}
+  </p>
+  <p class="summary">{summary}</p>
+  {
+    stack.length > 0 && (
+      <ul class="tags" role="list" aria-label={s(lang, 'work.stack')}>
+        {stack.map((x) => (
+          <li>
+            <Tag>{x}</Tag>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Card>
+
+<style>
+  .meta {
+    display: flex;
+    gap: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+  .type {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+  }
+  .summary {
+    color: var(--color-text-muted);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+</style>

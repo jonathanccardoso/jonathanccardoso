@@ -1,0 +1,17 @@
+---
+import BlogList from '../../../../components/blog/BlogList.astro';
+import { getBlogPosts, POSTS_PER_PAGE } from '../../../../lib/content';
+const lang = 'en';
+export async function getStaticPaths() {
+  const all = await getBlogPosts('en');
+  const totalPages = Math.ceil(all.length / POSTS_PER_PAGE);
+  // Page 1 lives at /blog/; only pages 2+ are generated here.
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => {
+    const page = i + 2;
+    return { params: { page: String(page) }, props: { all, page, totalPages } };
+  });
+}
+const { all, page, totalPages } = Astro.props;
+const posts = all.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
+---
+<BlogList {lang} {posts} allPosts={all} {page} {totalPages} base="blog" />

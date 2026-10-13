@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../Section.astro';
+import Tag from '../Tag.astro';
+import PostCard from './PostCard.astro';
+import Pagination from './Pagination.astro';
+import { collectTags, type BlogPost } from '../../lib/content';
+import { localizedPath, type Lang } from '../../i18n';
+import { s } from '../../lib/strings';
+
+interface Props {
+  lang: Lang;
+  /** Posts of the current page. */
+  posts: BlogPost[];
+  /** All posts of the language (for the tag list). */
+  allPosts: BlogPost[];
+  page: number;
+  totalPages: number;
+  /** 'blog' or 'blog/tag/<slug>' */
+  base: string;
+  /** Set on tag pages. */
+  tag?: string;
+}
+const { lang, posts, allPosts, page, totalPages, base, tag } = Astro.props;
+const tags = collectTags(allPosts);
+const title = tag ? `${s(lang, 'blog.tagTitle')} "${tag}"` : s(lang, 'blog.title');
+const pageTitle = page > 1 ? `${title} (${s(lang, 'blog.page')} ${page})` : title;
+// Only canonical (non-tag) first page has a counterpart in the other language.
+const otherLang: Lang = lang === 'pt' ? 'en' : 'pt';
+const alternates = tag
+  ? { [lang]: Astro.url.pathname }
+  : { [lang]: localizedPath(lang, page === 1 ? 'blog' : `blog/page/${page}`), [otherLang]: localizedPath(otherLang, page === 1 ? 'blog' : `blog/page/${page}`) };
+---
+
+<BaseLayout title={pageTitle} description={s(lang, 'blog.description')} {lang} alternates={alternates} noindex={!!tag && posts.length === 0}>
+  <Section eyebrow="Blog" title={title} description={tag ? undefined : s(lang, 'blog.description')}>
+    {
+      tags.length > 0 && (
+        <nav class="tag-filter" aria-label={s(lang, 'blog.tags')}>
+          <Tag href={localizedPath(lang, 'blog')}>{s(lang, 'blog.allPosts')}</Tag>
+          {tags.map((t) => (
+            <Tag href={localizedPath(lang, `blog/tag/${t.slug}`)}>
+              {t.tag} ({t.count})
+            </Tag>
+          ))}
+        </nav>
+      )
+    }
+    {
+      posts.length === 0 ? (
+        <p class="empty">{s(lang, 'blog.empty')}</p>
+      ) : (
+        <ul class="list" role="list">
+          {posts.map((post) => (
+            <PostCard {post} {lang} />
+          ))}
+        </ul>
+      )
+    }
+    <Pagination {lang} current={page} total={totalPages} {base} />
+  </Section>
+</BaseLayout>
+
+<style>
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+  .list {
+    display: grid;
+    gap: var(--space-5);
+    padding: 0;
+    list-style: none;
+  }
+  .empty {
+    color: var(--color-text-muted);
+  }
+</style>

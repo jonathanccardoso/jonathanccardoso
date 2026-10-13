@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../Section.astro';
+import Tag from '../Tag.astro';
+import Prose from './Prose.astro';
+import { render } from 'astro:content';
+import { formatDate, getAlternates, readingTime, slugifyTag, type BlogPost } from '../../lib/content';
+import { localizedPath, locales, type Lang } from '../../i18n';
+import { s } from '../../lib/strings';
+
+interface Props {
+  post: BlogPost;
+  lang: Lang;
+}
+const { post, lang } = Astro.props;
+const { title, description, pubDate, updatedDate, category, tags, heroImage } = post.data;
+const { Content } = await render(post);
+const alternates = await getAlternates('blog', post);
+const site = Astro.site ?? new URL('https://jonathanccardoso.netlify.app');
+const url = new URL(Astro.url.pathname, site).href;
+const image = new URL(heroImage ?? '/og-default.jpg', site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  inLanguage: locales[lang].html,
+  image,
+  keywords: tags.join(', '),
+  articleSection: category,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  author: { '@type': 'Person', name: 'Jonathan Cardoso', url: new URL(`/${lang}/`, site).href },
+};
+---
+
+<BaseLayout {title} {description} {lang} {alternates} type="article" image={heroImage} publishedTime={pubDate.toISOString()}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <Section narrow>
+    <article>
+      <header class="head">
+        <p class="meta">
+          <span class="category">{category}</span>
+          <time datetime={pubDate.toISOString()}>{formatDate(pubDate, lang)}</time>
+          {updatedDate && (
+            <span>{s(lang, 'blog.updated')} <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate, lang)}</time></span>
+          )}
+          <span>{readingTime(post.body)} {s(lang, 'blog.minRead')}</span>
+        </p>
+        <h1>{title}</h1>
+        <p class="lead">{description}</p>
+        {
+          tags.length > 0 && (
+            <ul class="tags" role="list" aria-label={s(lang, 'blog.tags')}>
+              {tags.map((tag) => (
+                <li>
+                  <Tag href={localizedPath(lang, `blog/tag/${slugifyTag(tag)}`)}>{tag}</Tag>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </header>
+      <Prose><Content /></Prose>
+      {Object.keys(alternates).length < 2 && <p class="note">{s(lang, 'blog.notTranslated')}</p>}
+      <p class="back"><a href={localizedPath(lang, 'blog')}>← {s(lang, 'blog.allPosts')}</a></p>
+    </article>
+  </Section>
+</BaseLayout>
+
+<style>
+  .head {
+    display: grid;
+    gap: var(--space-4);
+    margin-bottom: var(--space-7);
+  }
+  h1 {
+    font-size: var(--text-4xl);
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+  .category {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+  }
+  .lead {
+    font-size: var(--text-xl);
+    color: var(--color-text-muted);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+  .note {
+    margin-top: var(--space-7);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+  .back {
+    margin-top: var(--space-6);
+  }
+</style>

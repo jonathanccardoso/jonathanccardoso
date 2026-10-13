@@ -1,0 +1,11 @@
+---
+import WorkCase from '../../../components/work/WorkCase.astro';
+import { entrySlug, getWorkItems } from '../../../lib/content';
+const lang = 'pt';
+export async function getStaticPaths() {
+  const items = await getWorkItems('pt');
+  return items.map((item) => ({ params: { slug: entrySlug(item) }, props: { item } }));
+}
+const { item } = Astro.props;
+---
+<WorkCase {item} {lang} />
