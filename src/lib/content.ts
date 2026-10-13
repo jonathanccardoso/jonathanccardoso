@@ -9,9 +9,24 @@ export function entrySlug(entry: { id: string }): string {
   return entry.id.split('/').slice(1).join('/');
 }
 
-/** Published posts for a language, newest first. Drafts are always excluded. */
-export async function getBlogPosts(lang: Lang): Promise<BlogPost[]> {
+/** Published posts written in a language (used for article routes), newest first. Drafts are excluded. */
+export async function getOwnBlogPosts(lang: Lang): Promise<BlogPost[]> {
   const posts = await getCollection('blog', (p) => p.data.lang === lang && !p.data.draft);
+  return posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+}
+
+/**
+ * Posts for listings, newest first: the language's own posts plus posts from the other
+ * language that have no translation here (shown linked to their original language).
+ */
+export async function getBlogPosts(lang: Lang): Promise<BlogPost[]> {
+  const all = await getCollection('blog', (p) => !p.data.draft);
+  const translated = new Set(
+    all.filter((p) => p.data.lang === lang && p.data.translationKey).map((p) => p.data.translationKey),
+  );
+  const posts = all.filter(
+    (p) => p.data.lang === lang || !p.data.translationKey || !translated.has(p.data.translationKey),
+  );
   return posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 }
 

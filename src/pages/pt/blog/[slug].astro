@@ -1,9 +1,9 @@
 ---
 import BlogArticle from '../../../components/blog/BlogArticle.astro';
-import { entrySlug, getBlogPosts } from '../../../lib/content';
+import { entrySlug, getOwnBlogPosts } from '../../../lib/content';
 const lang = 'pt';
 export async function getStaticPaths() {
-  const posts = await getBlogPosts('pt');
+  const posts = await getOwnBlogPosts('pt');
   return posts.map((post) => ({ params: { slug: entrySlug(post) }, props: { post } }));
 }
 const { post } = Astro.props;
