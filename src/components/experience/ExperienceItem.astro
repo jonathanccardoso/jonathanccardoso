@@ -24,6 +24,14 @@ const stack = compact ? [] : (p.stack ?? []);
     <header class="head">
       <h3>{p.company}</h3>
       {current && <span class="badge">{labels.current}</span>}
+      {
+        p.website && !compact && (
+          <a class="site" href={p.website} target="_blank" rel="noopener noreferrer">
+            {new URL(p.website).hostname} <span aria-hidden="true">↗</span>
+            <span class="sr-only"> ({p.company})</span>
+          </a>
+        )
+      }
       {p.location && <p class="period">{p.location[lang]}</p>}
       {p.total && <p class="period">{p.total[lang]}</p>}
     </header>
@@ -84,6 +92,10 @@ const stack = compact ? [] : (p.stack ?? []);
 </li>
 
 <style>
+  .site {
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+  }
   .item {
     position: relative;
     list-style: none;

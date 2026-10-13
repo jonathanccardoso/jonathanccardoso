@@ -57,6 +57,8 @@ export interface Position {
   company: string;
   /** Slug of the work case study, when one exists (same in pt and en). */
   caseKey?: string;
+  /** Company website. */
+  website?: string;
   current?: boolean;
   location?: Record<Lang, string>;
   /** One entry per role held at the company (most recent first). */
@@ -77,6 +79,7 @@ export const positions: Position[] = [
     id: 'getrak',
     company: 'Getrak',
     caseKey: 'getrak',
+    website: 'https://getrak.com.br',
     current: true,
     roles: [{ title: 'Software Engineer', period: { pt: 'Mar 2024 – Atual', en: 'Mar 2024 – Present' } }],
     summary: {

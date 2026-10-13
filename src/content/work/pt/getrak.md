@@ -7,6 +7,7 @@ role: Software Engineer
 company: Getrak
 period: "Mar 2024 – Atual"
 stack: [Node.js, Java, React, Micro Frontends, REST, Docker, CI/CD, AWS]
+liveUrl: "https://getrak.com.br"
 featured: true
 order: 2
 translationKey: getrak
