@@ -1,5 +1,6 @@
 /* Design tokens. Dark is the default theme. Use these vars; avoid hardcoded values. */
-:root {
+:root,
+:root[data-theme='dark'] {
   color-scheme: dark;
 
   /* Colors: surfaces */
@@ -26,6 +27,9 @@
   --color-danger: #f87171;
   --color-focus: #a5b0ff;
   --color-overlay: rgb(8 9 10 / 0.8);
+  --color-accent-glow: rgb(124 140 255 / 0.16);
+  --color-accent-glow-soft: rgb(124 140 255 / 0.12);
+  --color-success-glow: rgb(74 222 128 / 0.15);
 
   /* Typography */
   --font-heading: 'Space Grotesk Variable', 'Inter Variable', system-ui, sans-serif;
@@ -85,7 +89,7 @@
   /* Shadows */
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-md: 0 8px 24px rgb(0 0 0 / 0.45);
-  --shadow-glow: 0 0 0 1px var(--color-border-strong), 0 12px 40px rgb(124 140 255 / 0.08);
+  --shadow-glow: 0 0 0 1px var(--color-border-strong), 0 12px 40px var(--color-accent-glow-soft);
 
   /* Motion */
   --duration-fast: 120ms;
@@ -100,13 +104,55 @@
   --z-skip: 100;
 }
 
+/* Light theme. Applied via data-theme set by the inline script in BaseLayout. */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --color-bg: #fafafa;
+  --color-bg-elevated: #ffffff;
+  --color-surface: #f2f3f5;
+  --color-surface-hover: #e9ebee;
+  --color-border: #dcdfe4;
+  --color-border-strong: #b9bec6;
+  --color-border-input: #697079;
+
+  --color-text: #0e1013;
+  --color-text-muted: #444a54;
+  --color-text-subtle: #565c67;
+
+  --color-accent: #3f4bd0;
+  --color-accent-hover: #2c37b0;
+  --color-accent-contrast: #ffffff;
+  --color-accent-soft: rgb(63 75 208 / 0.1);
+  --color-success: #137336;
+  --color-danger: #b91c1c;
+  --color-focus: #3f4bd0;
+  --color-overlay: rgb(250 250 250 / 0.85);
+  --color-accent-glow: rgb(63 75 208 / 0.12);
+  --color-accent-glow-soft: rgb(63 75 208 / 0.08);
+  --color-success-glow: rgb(21 128 61 / 0.18);
+
+  --shadow-sm: 0 1px 2px rgb(15 17 21 / 0.08);
+  --shadow-md: 0 8px 24px rgb(15 17 21 / 0.12);
+}
+
 /* Higher contrast when the user asks for it */
 @media (prefers-contrast: more) {
-  :root {
+  :root,
+  :root[data-theme='dark'] {
     --color-text-muted: #d0d3d9;
     --color-text-subtle: #bfc3ca;
     --color-border: #5a5e68;
     --color-border-strong: #8a8f98;
     --color-accent: #aab4ff;
+  }
+}
+@media (prefers-contrast: more) {
+  :root[data-theme='light'] {
+    --color-text-muted: #2a2f37;
+    --color-text-subtle: #343a44;
+    --color-border: #8a909a;
+    --color-border-strong: #5a606a;
+    --color-accent: #2c37b0;
   }
 }

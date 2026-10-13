@@ -31,12 +31,13 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
     data-lang={lang}
   >
     <noscript><p class="note">{c.noscript}</p></noscript>
+    <p class="required-note">{c.labels.requiredNote}</p>
     <div class="field">
-      <label for="cf-name">{c.labels.name}</label>
+      <label for="cf-name">{c.labels.name} <span class="req" aria-hidden="true">*</span></label>
       <input id="cf-name" name="name" type="text" required maxlength="100" autocomplete="name" />
     </div>
     <div class="field">
-      <label for="cf-email">{c.labels.email}</label>
+      <label for="cf-email">{c.labels.email} <span class="req" aria-hidden="true">*</span></label>
       <input id="cf-email" name="email" type="email" required maxlength="254" autocomplete="email" />
     </div>
     <div class="field">
@@ -44,7 +45,7 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
       <input id="cf-company" name="company" type="text" maxlength="100" autocomplete="organization" />
     </div>
     <div class="field">
-      <label for="cf-message">{c.labels.message}</label>
+      <label for="cf-message">{c.labels.message} <span class="req" aria-hidden="true">*</span></label>
       <textarea id="cf-message" name="message" required minlength="10" maxlength="5000" rows="6"></textarea>
     </div>
     <div class="hp" aria-hidden="true">
@@ -158,6 +159,14 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
   }
   label {
     font-weight: 500;
+  }
+  .required-note {
+    margin: 0 0 var(--space-4);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+  .req {
+    color: var(--color-accent);
   }
   .opt {
     color: var(--color-text-subtle);

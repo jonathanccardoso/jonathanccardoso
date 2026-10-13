@@ -14,6 +14,8 @@ export const en: Record<keyof typeof pt, string> = {
   'nav.openMenu': 'Open menu',
   'nav.closeMenu': 'Close menu',
   'nav.skipToContent': 'Skip to main content',
+  'theme.toLight': 'Switch to light theme',
+  'theme.toDark': 'Switch to dark theme',
   'lang.switch': 'Change language',
   'lang.pt': 'Português',
   'lang.en': 'English',

@@ -7,7 +7,7 @@ export interface ContactCopy {
   heading: string;
   lead: string;
   support: string;
-  labels: { name: string; email: string; company: string; message: string; optional: string; submit: string; sending: string };
+  labels: { name: string; email: string; company: string; message: string; optional: string; required: string; requiredNote: string; submit: string; sending: string };
   success: string;
   error: string;
   errors: Record<string, string>;
@@ -25,7 +25,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
     heading: 'Vamos conversar',
     lead: 'Envie uma mensagem e eu respondo por e-mail.',
     support: 'Aberto a oportunidades remotas com times globais. Fuso horário: Brasil (UTC−3).',
-    labels: { name: 'Nome', email: 'E-mail', company: 'Empresa', message: 'Mensagem', optional: '(opcional)', submit: 'Enviar mensagem', sending: 'Enviando...' },
+    labels: { name: 'Nome', email: 'E-mail', company: 'Empresa', message: 'Mensagem', optional: '(opcional)', required: 'obrigatório', requiredNote: 'Campos marcados com * são obrigatórios.', submit: 'Enviar mensagem', sending: 'Enviando...' },
     success: 'Mensagem enviada. Obrigado! Responderei em breve.',
     error: 'Não foi possível enviar a mensagem. Tente novamente em instantes.',
     errors: {
@@ -48,7 +48,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
     heading: "Let's talk",
     lead: 'Send a message and I will reply by email.',
     support: 'Open to remote opportunities with global teams. Time zone: Brazil (UTC−3).',
-    labels: { name: 'Name', email: 'Email', company: 'Company', message: 'Message', optional: '(optional)', submit: 'Send message', sending: 'Sending...' },
+    labels: { name: 'Name', email: 'Email', company: 'Company', message: 'Message', optional: '(optional)', required: 'required', requiredNote: 'Fields marked with * are required.', submit: 'Send message', sending: 'Sending...' },
     success: 'Message sent. Thank you! I will reply soon.',
     error: 'Could not send your message. Please try again shortly.',
     errors: {

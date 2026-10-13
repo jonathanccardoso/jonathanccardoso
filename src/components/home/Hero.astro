@@ -48,7 +48,7 @@ const c = homeCopy[lang].hero;
     padding-block: clamp(3rem, 2rem + 6vw, 7rem) var(--section-gap);
     overflow: hidden;
     background:
-      radial-gradient(60rem 28rem at 15% -10%, rgb(124 140 255 / 0.16), transparent 70%),
+      radial-gradient(60rem 28rem at 15% -10%, var(--color-accent-glow), transparent 70%),
       linear-gradient(to bottom, transparent 70%, var(--color-bg));
   }
   .inner {
@@ -95,7 +95,7 @@ const c = homeCopy[lang].hero;
     height: 0.5rem;
     border-radius: var(--radius-full);
     background: var(--color-success);
-    box-shadow: 0 0 0 4px rgb(74 222 128 / 0.15);
+    box-shadow: 0 0 0 4px var(--color-success-glow);
   }
   .photo {
     justify-self: start;

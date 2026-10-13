@@ -12,6 +12,8 @@ export const pt = {
   'nav.openMenu': 'Abrir menu',
   'nav.closeMenu': 'Fechar menu',
   'nav.skipToContent': 'Ir para o conteúdo principal',
+  'theme.toLight': 'Mudar para tema claro',
+  'theme.toDark': 'Mudar para tema escuro',
   'lang.switch': 'Mudar idioma',
   'lang.pt': 'Português',
   'lang.en': 'English',
