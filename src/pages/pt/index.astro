@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import { t } from '../../i18n';
+
+const lang = 'pt';
+---
+
+<BaseLayout title={t(lang, 'site.name')} description={t(lang, 'site.description')} {lang}>
+  <Section title={t(lang, 'site.role')} eyebrow={t(lang, 'site.name')}>
+    <p>{t(lang, 'home.placeholder')}</p>
+  </Section>
+</BaseLayout>
