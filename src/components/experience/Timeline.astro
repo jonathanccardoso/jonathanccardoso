@@ -1,32 +1,19 @@
 ---
 import ExperienceItem from './ExperienceItem.astro';
-import type { WorkItem } from '../../lib/content';
+import type { Position } from '../../data/experience-copy';
 import type { Lang } from '../../i18n';
 
 interface Props {
-  items: WorkItem[];
+  positions: Position[];
   lang: Lang;
-  currentLabel: string;
-  viewCase: string;
+  labels: { current: string; viewCase: string; stack: string; impact: string; details: string };
   compact?: boolean;
 }
-const { items, lang, currentLabel, viewCase, compact } = Astro.props;
+const { positions, lang, labels, compact } = Astro.props;
 ---
 
 <ol role="list" class="timeline">
-  {
-    items.map((item, i) => (
-      <ExperienceItem
-        {item}
-        {lang}
-        {currentLabel}
-        {viewCase}
-        {compact}
-        current={item.data.translationKey === 'getrak'}
-        delay={i * 70}
-      />
-    ))
-  }
+  {positions.map((position, i) => <ExperienceItem {position} {lang} {labels} {compact} delay={i * 70} />)}
 </ol>
 
 <style>

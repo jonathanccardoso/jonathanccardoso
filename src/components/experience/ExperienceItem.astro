@@ -1,46 +1,69 @@
 ---
 import Tag from '../Tag.astro';
-import { entrySlug, type WorkItem } from '../../lib/content';
 import { localizedPath, type Lang } from '../../i18n';
+import type { Position } from '../../data/experience-copy';
 
 interface Props {
-  item: WorkItem;
+  position: Position;
   lang: Lang;
-  current?: boolean;
-  currentLabel: string;
-  viewCase: string;
-  /** Hides stack and metrics (home highlights). */
+  labels: { current: string; viewCase: string; stack: string; impact: string; details: string };
+  /** Home highlights: only summary and impacts (no details or stack). */
   compact?: boolean;
   delay?: number;
 }
-const { item, lang, current = false, currentLabel, viewCase, compact = false, delay = 0 } = Astro.props;
-const { title, summary, period, metrics, stack, role } = item.data;
-const href = localizedPath(lang, `work/${entrySlug(item)}`);
+const { position: p, lang, labels, compact = false, delay = 0 } = Astro.props;
+const current = !!p.current;
+const href = p.caseKey ? localizedPath(lang, `work/${p.caseKey}`) : undefined;
+const details = compact ? [] : (p.details?.[lang] ?? []);
+const impacts = p.impacts?.[lang] ?? [];
+const stack = compact ? [] : (p.stack ?? []);
 ---
 
 <li class:list={['item', { current }]} data-reveal style={`--reveal-delay: ${delay}ms`}>
   <article>
     <header class="head">
-      <h3>{title}</h3>
-      {current && <span class="badge">{currentLabel}</span>}
-      {period && <p class="period">{period}</p>}
+      <h3>{p.company}</h3>
+      {current && <span class="badge">{labels.current}</span>}
+      {p.location && <p class="period">{p.location[lang]}</p>}
+      {p.total && <p class="period">{p.total[lang]}</p>}
     </header>
-    {role && <p class="role">{role}</p>}
-    <p class="summary">{summary}</p>
+    <ul role="list" class="roles">
+      {
+        p.roles.map((r) => (
+          <li>
+            <span class="role">{r.title}</span> <span class="period">{r.period[lang]}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="summary">{p.summary[lang]}</p>
     {
-      !compact && metrics && metrics.length > 0 && (
-        <ul role="list" class="metrics">
-          {metrics.map((m) => (
-            <li>
-              <strong>{m.value}</strong> <span>{m.label}</span>
-            </li>
-          ))}
-        </ul>
+      details.length > 0 && (
+        <div>
+          <h4>{labels.details}</h4>
+          <ul class="bullets">
+            {details.map((d) => (
+              <li>{d}</li>
+            ))}
+          </ul>
+        </div>
       )
     }
     {
-      !compact && stack.length > 0 && (
-        <ul role="list" class="tags">
+      impacts.length > 0 && (
+        <div>
+          <h4>{labels.impact}</h4>
+          <ul class="bullets impact">
+            {impacts.map((d) => (
+              <li>{d}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    {
+      stack.length > 0 && (
+        <ul role="list" class="tags" aria-label={labels.stack}>
           {stack.map((x) => (
             <li>
               <Tag>{x}</Tag>
@@ -49,7 +72,14 @@ const href = localizedPath(lang, `work/${entrySlug(item)}`);
         </ul>
       )
     }
-    <a class="more" href={href}>{viewCase}<span class="sr-only">: {title}</span> <span aria-hidden="true">→</span></a>
+    {
+      href && (
+        <a class="more" href={href}>
+          {labels.viewCase}
+          <span class="sr-only">: {p.company}</span> <span aria-hidden="true">→</span>
+        </a>
+      )
+    }
   </article>
 </li>
 
@@ -123,7 +153,29 @@ const href = localizedPath(lang, `work/${entrySlug(item)}`);
   .summary {
     color: var(--color-text-muted);
   }
-  .metrics,
+  .roles {
+    display: grid;
+    gap: var(--space-1);
+    padding: 0;
+    list-style: none;
+  }
+  .role {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+  }
+  h4 {
+    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+    color: var(--color-text-subtle);
+    margin-bottom: var(--space-2);
+  }
+  .bullets {
+    margin: 0;
+    padding-left: var(--space-5);
+    display: grid;
+    gap: var(--space-1);
+    color: var(--color-text-muted);
+  }
   .tags {
     display: flex;
     flex-wrap: wrap;
@@ -133,14 +185,6 @@ const href = localizedPath(lang, `work/${entrySlug(item)}`);
   }
   .tags {
     gap: var(--space-2);
-  }
-  .metrics strong {
-    font-family: var(--font-heading);
-    font-size: var(--text-xl);
-  }
-  .metrics span {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
   }
   .more {
     font-size: var(--text-sm);

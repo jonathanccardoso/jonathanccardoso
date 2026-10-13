@@ -26,18 +26,20 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       title: 'Resumo profissional',
       paragraphs: [
         'Sou Jonathan Cardoso, Engenheiro de Software Full Stack Sênior. Trabalho com React, Next.js, TypeScript, Node.js, NestJS, Python e Django, e já atuei com aplicações e microsserviços integrados a APIs de pagamento e crawlers.',
-        'Tenho experiência em agências de publicidade, instituições acadêmicas e empresas de desenvolvimento. Atualmente trabalho na Getrak, reestruturando uma plataforma de rastreamento veicular em tempo real.',
-        'Encaro cada obstáculo como aprendizado profissional, em aprendizado contínuo.',
+        'Desde março de 2024 sou Software Engineer na Getrak, onde participo da reestruturação arquitetural de uma plataforma de rastreamento veicular em tempo real, com microsserviços e micro frontends. Antes, passei pela SolarMarket Brasil, Incubatech, IFRN e Mobister, com foco em desempenho, escalabilidade e qualidade de código.',
+        'Participo de code reviews e discussões técnicas, faço mentoria e escrevo artigos. Uso desenvolvimento assistido por IA (GitHub Copilot e Claude Code) no dia a dia, com foco em qualidade, segurança e arquitetura. Moro em Extremoz, no Rio Grande do Norte, e trabalho remotamente.',
       ],
     },
     trajectory: {
       title: 'Trajetória desde 2018',
       items: [
-        { year: '2014', text: 'Início dos estudos em TI, com o curso de Técnico em Informática para Internet.' },
-        { year: '2018', text: 'Início da trajetória profissional em desenvolvimento, com projetos como o da Mobister.' },
-        { year: '2019', text: 'Incubatech, EasyDiet, FacePonto e DIATINF (IFRN).' },
-        { year: '2021', text: 'SolarMarket: gerador de propostas comerciais para energia solar, com mais de 5.000 usuários simultâneos.' },
-        { year: 'Hoje', text: 'Getrak, na reestruturação de uma plataforma de rastreamento veicular em tempo real, e ASO360, meu SaaS próprio.' },
+        { year: '2014', text: 'Início dos estudos em TI, com o curso Técnico em Informática para Internet no IFRN (2014 a 2017).' },
+        { year: '2017', text: 'Desenvolvimento web no IFRN (mar 2017 a jan 2018).' },
+        { year: '2018', text: 'Primeiro emprego como desenvolvedor: Web Developer Jr na Mobister (jan a abr 2018). Início da graduação em Análise e Desenvolvimento de Sistemas (TADS) no IFRN, concluída em 2022.' },
+        { year: '2019', text: 'Full Stack Developer na Incubatech (fev 2019 a jun 2021): Django, React e WordPress, migração de Heroku para DigitalOcean, integração de pagamentos de assinatura com a Hotmart e carregamento de páginas cerca de 40% mais rápido.' },
+        { year: '2021', text: 'Full Stack Developer no IFRN (mar 2021 a mar 2022) e Frontend Web Developer na SolarMarket (jun 2021), depois Full Stack Developer (jan 2022 a mar 2024), em uma plataforma que escalou para mais de 5.000 usuários simultâneos.' },
+        { year: '2024', text: 'Software Engineer na Getrak (desde mar 2024), na reestruturação arquitetural de uma plataforma de rastreamento veicular em tempo real.' },
+        { year: 'Hoje', text: 'Getrak, e ASO360, meu SaaS próprio.' },
       ],
     },
     philosophy: {
@@ -53,9 +55,9 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       title: 'Arquitetura, escalabilidade e qualidade',
       paragraphs: [
         'Minha experiência inclui microsserviços, micro frontends e system design, com APIs REST, GraphQL e gRPC, em ambientes com AWS, Docker e CI/CD, e bancos como PostgreSQL, MongoDB e Redis.',
-        'Na SolarMarket, trabalhei em uma plataforma que atende mais de 5.000 usuários simultâneos. Na Incubatech, o carregamento de páginas ficou cerca de 40% mais rápido.',
+        'Na Getrak, otimizei APIs REST para melhorar o tempo de resposta e a estabilidade sob alta concorrência. Na SolarMarket, trabalhei em uma plataforma que escalou para mais de 5.000 usuários simultâneos. Na Incubatech, o carregamento de páginas ficou cerca de 40% mais rápido.',
       ],
-      tags: ['Microservices', 'Micro Frontends', 'System Design', 'REST', 'GraphQL', 'gRPC', 'AWS', 'Docker', 'CI/CD', 'PostgreSQL', 'MongoDB', 'Redis'],
+      tags: ['Microservices', 'Micro Frontends', 'System Design', 'REST', 'GraphQL', 'gRPC', 'AWS', 'Docker', 'CI/CD', 'PostgreSQL', 'MongoDB', 'Redis', 'RabbitMQ'],
     },
     product: {
       title: 'Um produto próprio',
@@ -74,18 +76,20 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       title: 'Professional summary',
       paragraphs: [
         "I'm Jonathan Cardoso, a Senior Full Stack Software Engineer. I work with React, Next.js, TypeScript, Node.js, NestJS, Python and Django, and I have worked on applications and microservices integrated with payment APIs and crawlers.",
-        'I have experience in advertising agencies, academic institutions and development companies. I currently work at Getrak, re-architecting a real-time vehicle tracking platform.',
-        'I face every obstacle as professional learning, in continuous learning.',
+        'Since March 2024 I have been a Software Engineer at Getrak, taking part in the architectural restructuring of a real-time vehicle tracking platform, with microservices and micro frontends. Before that I worked at SolarMarket Brasil, Incubatech, IFRN and Mobister, focused on performance, scalability and code quality.',
+        'I take part in code reviews and technical discussions, mentor other developers and write articles. I use AI-assisted development (GitHub Copilot and Claude Code) daily, with a focus on quality, security and architecture. I live in Extremoz, Rio Grande do Norte, and work remotely.',
       ],
     },
     trajectory: {
       title: 'Career since 2018',
       items: [
-        { year: '2014', text: 'Started studying IT, with an Internet Computing Technician course.' },
-        { year: '2018', text: 'Started my professional development career, with projects such as Mobister.' },
-        { year: '2019', text: 'Incubatech, EasyDiet, FacePonto and DIATINF (IFRN).' },
-        { year: '2021', text: 'SolarMarket: a commercial proposal generator for solar energy, serving 5,000+ concurrent users.' },
-        { year: 'Today', text: 'Getrak, re-architecting a real-time vehicle tracking platform, and ASO360, my own SaaS.' },
+        { year: '2014', text: 'Started studying IT, with the Internet Computing Technician course at IFRN (2014 to 2017).' },
+        { year: '2017', text: 'Web development at IFRN (Mar 2017 to Jan 2018).' },
+        { year: '2018', text: 'First job as a developer: Web Developer Jr at Mobister (Jan to Apr 2018). Started the Systems Analysis and Development (TADS) degree at IFRN, completed in 2022.' },
+        { year: '2019', text: 'Full Stack Developer at Incubatech (Feb 2019 to Jun 2021): Django, React and WordPress, Heroku to DigitalOcean migration, subscription payments with Hotmart and page loads about 40% faster.' },
+        { year: '2021', text: 'Full Stack Developer at IFRN (Mar 2021 to Mar 2022) and Frontend Web Developer at SolarMarket (Jun 2021), then Full Stack Developer (Jan 2022 to Mar 2024), on a platform that scaled to 5,000+ concurrent users.' },
+        { year: '2024', text: 'Software Engineer at Getrak (since Mar 2024), on the architectural restructuring of a real-time vehicle tracking platform.' },
+        { year: 'Today', text: 'Getrak, and ASO360, my own SaaS.' },
       ],
     },
     philosophy: {
@@ -101,9 +105,9 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       title: 'Architecture, scalability and quality',
       paragraphs: [
         'My experience includes microservices, micro frontends and system design, with REST, GraphQL and gRPC APIs, on AWS, Docker and CI/CD, and databases such as PostgreSQL, MongoDB and Redis.',
-        'At SolarMarket, I worked on a platform serving 5,000+ concurrent users. At Incubatech, page loads became about 40% faster.',
+        'At Getrak, I optimized REST APIs to improve response time and stability under high concurrency. At SolarMarket, I worked on a platform that scaled to 5,000+ concurrent users. At Incubatech, page loads became about 40% faster.',
       ],
-      tags: ['Microservices', 'Micro Frontends', 'System Design', 'REST', 'GraphQL', 'gRPC', 'AWS', 'Docker', 'CI/CD', 'PostgreSQL', 'MongoDB', 'Redis'],
+      tags: ['Microservices', 'Micro Frontends', 'System Design', 'REST', 'GraphQL', 'gRPC', 'AWS', 'Docker', 'CI/CD', 'PostgreSQL', 'MongoDB', 'Redis', 'RabbitMQ'],
     },
     product: {
       title: 'A product of my own',

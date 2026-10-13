@@ -34,10 +34,10 @@ export interface HomeCopy {
 }
 
 const techGroups = (lang: Lang) => [
-  { name: lang === 'pt' ? 'Front-end' : 'Frontend', items: ['React', 'Next.js', 'TypeScript'] },
+  { name: lang === 'pt' ? 'Front-end' : 'Frontend', items: ['React', 'Next.js', 'Vue.js', 'TypeScript'] },
   { name: 'Back-end', items: ['Node.js', 'NestJS', 'Python', 'Django'] },
   { name: lang === 'pt' ? 'APIs' : 'APIs', items: ['REST', 'GraphQL', 'gRPC'] },
-  { name: lang === 'pt' ? 'Arquitetura' : 'Architecture', items: ['Microservices', 'Micro Frontends', 'System Design'] },
+  { name: lang === 'pt' ? 'Arquitetura' : 'Architecture', items: ['Microservices', 'Micro Frontends', 'System Design', 'RabbitMQ'] },
   { name: lang === 'pt' ? 'Nuvem e DevOps' : 'Cloud and DevOps', items: ['AWS', 'Docker', 'CI/CD'] },
   { name: lang === 'pt' ? 'Dados' : 'Data', items: ['PostgreSQL', 'MongoDB', 'Redis'] },
   { name: lang === 'pt' ? 'Práticas' : 'Practices', items: ['Clean Code', 'SOLID', 'TDD', 'Code review'] },
@@ -47,12 +47,12 @@ export const homeCopy: Record<Lang, HomeCopy> = {
   pt: {
     title: 'Senior Full Stack Software Engineer',
     description:
-      'Jonathan Cardoso: mais de 7 anos transformando produtos complexos em sistemas confiáveis com React, Node.js, TypeScript e Python. Criador do ASO360 e engenheiro na Getrak.',
+      'Jonathan Cardoso: mais de 7 anos transformando produtos complexos em sistemas confiáveis com React, Node.js, TypeScript e Python. Criador do ASO360 e Software Engineer na Getrak.',
     hero: {
       eyebrow: 'Jonathan Cardoso',
       title: 'Senior Full Stack Software Engineer',
       subtitle:
-        'Mais de 7 anos transformando produtos complexos em sistemas confiáveis com React, Node.js, TypeScript e Python. Criador do ASO360, um SaaS para clínicas de medicina ocupacional que construí e opero. Atualmente reestruturando uma plataforma de rastreamento veicular em tempo real na Getrak.',
+        'Mais de 7 anos transformando produtos complexos em sistemas confiáveis com React, Node.js, TypeScript e Python. Criador do ASO360, um SaaS para clínicas de medicina ocupacional que construí e opero. Software Engineer na Getrak desde março de 2024, participando da reestruturação arquitetural de uma plataforma de rastreamento veicular em tempo real, com microsserviços e micro frontends.',
       work: 'Ver projetos',
       resume: 'Currículo',
       contact: 'Entrar em contato',
@@ -78,7 +78,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     experience: {
       eyebrow: 'Experiência',
       title: 'Experiência profissional',
-      description: 'Empresas e produtos em que atuei, da mais recente à mais antiga.',
+      description: 'Onde atuei e o impacto do trabalho, da posição mais recente à mais antiga.',
       cta: 'Ver experiência completa',
       current: 'Atual',
     },
@@ -117,12 +117,12 @@ export const homeCopy: Record<Lang, HomeCopy> = {
   en: {
     title: 'Senior Full Stack Software Engineer',
     description:
-      'Jonathan Cardoso: 7+ years turning complex products into reliable systems with React, Node.js, TypeScript and Python. Creator of ASO360 and engineer at Getrak.',
+      'Jonathan Cardoso: 7+ years turning complex products into reliable systems with React, Node.js, TypeScript and Python. Creator of ASO360 and Software Engineer at Getrak.',
     hero: {
       eyebrow: 'Jonathan Cardoso',
       title: 'Senior Full Stack Software Engineer',
       subtitle:
-        '7+ years turning complex products into reliable systems with React, Node.js, TypeScript and Python. Creator of ASO360, a SaaS for occupational health clinics that I built and operate. Currently re-architecting a real-time vehicle tracking platform at Getrak.',
+        '7+ years turning complex products into reliable systems with React, Node.js, TypeScript and Python. Creator of ASO360, a SaaS for occupational health clinics that I built and operate. Software Engineer at Getrak since March 2024, taking part in the architectural restructuring of a real-time vehicle tracking platform with microservices and micro frontends.',
       work: 'View projects',
       resume: 'Resume',
       contact: 'Get in touch',
@@ -148,7 +148,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     experience: {
       eyebrow: 'Experience',
       title: 'Professional experience',
-      description: 'Companies and products I worked on, most recent first.',
+      description: 'Where I worked and the impact of the work, most recent first.',
       cta: 'See full experience',
       current: 'Current',
     },

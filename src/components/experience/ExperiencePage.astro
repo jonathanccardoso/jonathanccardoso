@@ -4,8 +4,7 @@ import Section from '../Section.astro';
 import Button from '../Button.astro';
 import Reveal from '../Reveal.astro';
 import Timeline from './Timeline.astro';
-import { getWorkItems } from '../../lib/content';
-import { experienceCopy, otherProjects } from '../../data/experience-copy';
+import { experienceCopy, positions, education, certifications, languages } from '../../data/experience-copy';
 import { localizedPath, type Lang } from '../../i18n';
 
 interface Props {
@@ -13,37 +12,46 @@ interface Props {
 }
 const { lang } = Astro.props;
 const c = experienceCopy[lang];
-const all = await getWorkItems(lang);
-const employment = all.filter((i) => i.data.type === 'employment');
-const products = all.filter((i) => i.data.type === 'product');
+const labels = { current: c.current, viewCase: c.viewCase, stack: c.stackLabel, impact: c.impactLabel, details: c.detailsLabel };
 ---
 
 <BaseLayout title={c.title} description={c.description} {lang}>
   <Section pageTitle eyebrow={c.eyebrow} title={c.heading} description={c.lead} class="first">
-    <h2 class="sub">{c.employmentTitle}</h2>
-    <Timeline items={employment} {lang} currentLabel={c.current} viewCase={c.viewCase} />
+    <Timeline {positions} {lang} {labels} />
   </Section>
 
-  {
-    products.length > 0 && (
-      <Section id="products" title={c.productTitle}>
-        <Timeline items={products} {lang} currentLabel={c.current} viewCase={c.viewCase} />
-      </Section>
-    )
-  }
-
-  <Section id="other" title={c.otherTitle} description={c.otherDescription}>
+  <Section id="education" title={c.education.title} description={c.education.description}>
     <ul role="list" class="grid">
       {
-        otherProjects.map((p, i) => (
+        education.map((e, i) => (
           <li class="card" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
-            <h3>{p.name}</h3>
-            <p class="year">{p.year}</p>
-            <p class="desc">{p.desc[lang]}</p>
-            <a href={p.link} target="_blank" rel="noopener noreferrer">
-              {c.visit}<span class="sr-only"> {p.name} ({lang === 'pt' ? 'abre em nova aba' : 'opens in a new tab'})</span>
-              <span aria-hidden="true"> ↗</span>
-            </a>
+            <h3>{e.name[lang]}</h3>
+            <p class="year">{e.institution} · {e.period}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="certifications" title={c.certifications.title}>
+    <ul role="list" class="grid">
+      {
+        certifications.map((name, i) => (
+          <li class="card" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+            <h3>{name}</h3>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="languages" title={c.languages.title}>
+    <ul role="list" class="grid">
+      {
+        languages.map((l, i) => (
+          <li class="card" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+            <h3>{l.name[lang]}</h3>
+            <p class="year">{l.level[lang]}</p>
           </li>
         ))
       }
@@ -60,10 +68,6 @@ const products = all.filter((i) => i.data.type === 'product');
 </BaseLayout>
 
 <style>
-  .sub {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-5);
-  }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
