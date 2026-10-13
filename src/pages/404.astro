@@ -9,8 +9,8 @@ import { t, localizedPath, getLangFromUrl } from '../i18n';
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<BaseLayout title={t(lang, 'notFound.title')} description={t(lang, 'notFound.description')} {lang} noindex>
-  <Section eyebrow="404" title={t(lang, 'notFound.title')} description={t(lang, 'notFound.description')}>
+<BaseLayout title={t(lang, 'notFound.title')} description={t(lang, 'notFound.description')} {lang} noindex alternates={{ pt: '/pt/', en: '/en/' }}>
+  <Section pageTitle eyebrow="404" title={t(lang, 'notFound.title')} description={t(lang, 'notFound.description')}>
     <Button href={localizedPath(lang)}>{t(lang, 'notFound.cta')}</Button>
   </Section>
 </BaseLayout>

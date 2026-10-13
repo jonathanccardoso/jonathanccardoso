@@ -53,6 +53,7 @@ typings/
 *.tgz
 
 # dotenv environment variable files
+.env
 .env.*
 
 # astro

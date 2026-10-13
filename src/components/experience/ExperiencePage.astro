@@ -19,7 +19,7 @@ const products = all.filter((i) => i.data.type === 'product');
 ---
 
 <BaseLayout title={c.title} description={c.description} {lang}>
-  <Section eyebrow={c.eyebrow} title={c.heading} description={c.lead} class="first">
+  <Section pageTitle eyebrow={c.eyebrow} title={c.heading} description={c.lead} class="first">
     <h2 class="sub">{c.employmentTitle}</h2>
     <Timeline items={employment} {lang} currentLabel={c.current} viewCase={c.viewCase} />
   </Section>

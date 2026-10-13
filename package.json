@@ -15,6 +15,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "verify": "node scripts/check-site.mjs",
     "astro": "astro",
     "test": "node --import tsx --test netlify/functions/lib/*.test.ts"
   },

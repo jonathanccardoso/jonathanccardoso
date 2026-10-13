@@ -16,7 +16,7 @@ const mailto = import.meta.env.PUBLIC_CONTACT_EMAIL as string | undefined;
 const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
 ---
 
-<Section id="contact" eyebrow={c.eyebrow} title={c.heading} description={c.lead} narrow>
+<Section pageTitle id="contact" eyebrow={c.eyebrow} title={c.heading} description={c.lead} narrow>
   <p class="support">{c.support}</p>
 
   <form
@@ -169,7 +169,7 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
     padding: var(--space-3) var(--space-4);
     background: var(--color-surface);
     color: var(--color-text);
-    border: 1px solid var(--color-border-strong);
+    border: 1px solid var(--color-border-input);
     border-radius: 0.5rem;
     font: inherit;
   }

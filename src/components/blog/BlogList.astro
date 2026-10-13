@@ -33,7 +33,7 @@ const alternates = tag
 ---
 
 <BaseLayout title={pageTitle} description={s(lang, 'blog.description')} {lang} alternates={alternates} noindex={!!tag && posts.length === 0}>
-  <Section eyebrow="Blog" title={title} description={tag ? undefined : s(lang, 'blog.description')}>
+  <Section pageTitle eyebrow="Blog" title={title} description={tag ? undefined : s(lang, 'blog.description')}>
     {
       tags.length > 0 && (
         <nav class="tag-filter" aria-label={s(lang, 'blog.tags')}>

@@ -16,7 +16,7 @@ const c = aboutCopy[lang];
 ---
 
 <BaseLayout title={c.title} description={c.description} {lang}>
-  <Section eyebrow={c.eyebrow} title={c.heading} description={c.lead} class="intro">
+  <Section pageTitle eyebrow={c.eyebrow} title={c.heading} description={c.lead} class="intro">
     <h2 class="sub" data-reveal>{c.summary.title}</h2>
     <div class="prose" data-reveal>
       {c.summary.paragraphs.map((p) => <p>{p}</p>)}

@@ -8,3 +8,28 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+
+# --- Redirects (old Gatsby site -> new /pt/ routes) ---
+# Old site was a single page at "/" plus the Gatsby starter pages. Only real URLs are redirected;
+# /page-2 and /using-typescript were Gatsby starter boilerplate and are intentionally left to 404.
+[[redirects]]
+  from = "/"
+  to = "/pt/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog"
+  to = "/pt/blog/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/"
+  to = "/pt/blog/"
+  status = 301
+
+# gatsby-plugin-sitemap published /sitemap.xml
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap-index.xml"
+  status = 301

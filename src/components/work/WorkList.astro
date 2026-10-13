@@ -14,7 +14,7 @@ const items = await getWorkItems(lang);
 ---
 
 <BaseLayout title={s(lang, 'work.title')} description={s(lang, 'work.description')} {lang}>
-  <Section eyebrow={s(lang, 'work.eyebrow')} title={s(lang, 'work.title')} description={s(lang, 'work.description')}>
+  <Section pageTitle eyebrow={s(lang, 'work.eyebrow')} title={s(lang, 'work.title')} description={s(lang, 'work.description')}>
     {
       items.length === 0 ? (
         <p>{s(lang, 'work.empty')}</p>

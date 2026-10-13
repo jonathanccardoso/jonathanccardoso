@@ -65,7 +65,7 @@ const other = langs.filter((l) => l !== lang);
           other.map((l) => (
             <li>
               <a
-                href={alternates?.[l] ?? getAlternatePath(Astro.url, l)}
+                href={alternates ? (alternates[l] ?? localizedPath(l, 'blog')) : getAlternatePath(Astro.url, l)}
                 hreflang={l}
                 lang={l}
                 class="lang-link"

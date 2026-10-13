@@ -4,6 +4,9 @@ import SEO from '../components/SEO.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { locales, t, type Lang } from '../i18n';
+// Preload only the Latin subset of each variable font (other subsets load on demand via unicode-range).
+import interLatin from '../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import groteskLatin from '../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -28,6 +31,8 @@ const fullTitle = title === t(lang, 'site.name') ? title : `${title} | ${t(lang,
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#08090a" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={groteskLatin} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script is:inline>document.documentElement.classList.add('js');</script>
