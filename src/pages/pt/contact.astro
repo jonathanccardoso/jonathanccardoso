@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { contactCopy } from '../../data/contact-copy';
+
+const lang = 'pt';
+const c = contactCopy[lang];
+---
+
+<BaseLayout title={c.title} description={c.description} {lang}>
+  <ContactForm {lang} />
+</BaseLayout>

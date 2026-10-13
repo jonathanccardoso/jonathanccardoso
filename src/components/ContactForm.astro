@@ -1,0 +1,225 @@
+---
+import Section from './Section.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import { contactCopy } from '../data/contact-copy';
+import { socialLinks } from '../data/site';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = contactCopy[lang];
+// Public values only (inlined at build time). Server secrets never come through here.
+const mailto = import.meta.env.PUBLIC_CONTACT_EMAIL as string | undefined;
+const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+---
+
+<Section id="contact" eyebrow={c.eyebrow} title={c.heading} description={c.lead} narrow>
+  <p class="support">{c.support}</p>
+
+  <form
+    id="contact-form"
+    method="post"
+    action="/.netlify/functions/contact"
+    novalidate
+    data-errors={JSON.stringify(c.errors)}
+    data-error-default={c.error}
+    data-success-text={c.success}
+    data-sending={c.labels.sending}
+    data-lang={lang}
+  >
+    <noscript><p class="note">{c.noscript}</p></noscript>
+    <div class="field">
+      <label for="cf-name">{c.labels.name}</label>
+      <input id="cf-name" name="name" type="text" required maxlength="100" autocomplete="name" />
+    </div>
+    <div class="field">
+      <label for="cf-email">{c.labels.email}</label>
+      <input id="cf-email" name="email" type="email" required maxlength="254" autocomplete="email" />
+    </div>
+    <div class="field">
+      <label for="cf-company">{c.labels.company} <span class="opt">{c.labels.optional}</span></label>
+      <input id="cf-company" name="company" type="text" maxlength="100" autocomplete="organization" />
+    </div>
+    <div class="field">
+      <label for="cf-message">{c.labels.message}</label>
+      <textarea id="cf-message" name="message" required minlength="10" maxlength="5000" rows="6"></textarea>
+    </div>
+    <div class="hp" aria-hidden="true">
+      <label for="cf-website">Website</label>
+      <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    {turnstileKey && <div class="cf-turnstile" data-sitekey={turnstileKey}></div>}
+    <Button type="submit" size="lg">{c.labels.submit}</Button>
+    <p id="contact-status" class="status" role="status" aria-live="polite" tabindex="-1"></p>
+    <p id="contact-fallback" class="note" hidden>
+      {
+        mailto && (
+          <>
+            {c.mailtoIntro} <a href={`mailto:${mailto}`} data-event="contact_mailto_click">{c.mailtoLink}</a>.
+          </>
+        )
+      }
+    </p>
+  </form>
+
+  <h3 class="social-title">{c.social}</h3>
+  <ul class="social">
+    {
+      socialLinks.map((s) => (
+        <li>
+          <a href={s.href} target="_blank" rel="noopener noreferrer" data-event="contact_social_click" data-network={s.label}>
+            <Icon name={s.icon} />
+            <span>{s.label}</span>
+            <span class="sr-only">{lang === 'pt' ? '(abre em nova aba)' : '(opens in new tab)'}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  {turnstileKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+</Section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const status = document.getElementById('contact-status') as HTMLElement;
+    const fallback = document.getElementById('contact-fallback') as HTMLElement;
+    const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const idleLabel = button.textContent ?? '';
+    const messages: Record<string, string> = JSON.parse(form.dataset.errors ?? '{}');
+    const emit = (name: string, detail: Record<string, unknown> = {}) =>
+      window.dispatchEvent(new CustomEvent(name, { detail: { lang: form.dataset.lang, ...detail } }));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (button.disabled) return;
+      status.className = 'status';
+      status.textContent = '';
+      fallback.hidden = true;
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+      button.textContent = form.dataset.sending ?? '';
+      emit('contact_submit');
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      const token = data['cf-turnstile-response'];
+      const payload = { ...data, turnstileToken: token };
+      delete (payload as Record<string, unknown>)['cf-turnstile-response'];
+
+      try {
+        const res = await fetch('/.netlify/functions/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const body = (await res.json().catch(() => null)) as { ok: boolean; error?: string } | null;
+        if (res.ok && body?.ok) {
+          form.reset();
+          status.classList.add('ok');
+          status.textContent = form.dataset.successText ?? '';
+          emit('contact_success');
+        } else {
+          const code = body?.error ?? 'unknown';
+          status.classList.add('err');
+          status.textContent = messages[code] ?? form.dataset.errorDefault ?? '';
+          if (!messages[code]) fallback.hidden = false;
+          emit('contact_error', { error: code, status: res.status });
+        }
+      } catch {
+        status.classList.add('err');
+        status.textContent = form.dataset.errorDefault ?? '';
+        fallback.hidden = false;
+        emit('contact_error', { error: 'network' });
+      } finally {
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
+        button.textContent = idleLabel;
+        (window as unknown as { turnstile?: { reset: () => void } }).turnstile?.reset();
+      }
+    });
+  }
+</script>
+
+<style>
+  .support {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+  }
+  form {
+    display: grid;
+    gap: var(--space-5);
+  }
+  .field {
+    display: grid;
+    gap: var(--space-2);
+  }
+  label {
+    font-weight: 500;
+  }
+  .opt {
+    color: var(--color-text-subtle);
+    font-weight: 400;
+  }
+  input,
+  textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 0.5rem;
+    font: inherit;
+  }
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  .hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .status {
+    min-height: 1.5em;
+  }
+  .status.ok {
+    color: var(--color-success);
+  }
+  .status.err {
+    color: var(--color-danger);
+  }
+  .note {
+    color: var(--color-text-muted);
+  }
+  .social-title {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+  .social {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  .social a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+</style>

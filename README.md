@@ -55,3 +55,15 @@ Nested/dynamic routes: `src/pages/pt/blog/[slug].astro` (same for `en`). Header 
 ### Styling
 
 Use CSS variables from `src/styles/tokens.css`; component styles are scoped in each `.astro` file. Dark theme is the default.
+
+## Contact form setup
+
+The `/pt/contact/` and `/en/contact/` form posts JSON to the Netlify Function `netlify/functions/contact.ts`, which validates input, checks a honeypot, applies a best-effort per-IP rate limit and sends mail through the [Resend](https://resend.com) REST API. All secrets stay on the server.
+
+1. Copy `.env.example` to `.env` and fill it in (see the file for every variable; in production set them in Netlify > Environment variables).
+   - Server only: `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` (a sender verified in Resend), optional `CONTACT_AUTOREPLY=true`, optional `TURNSTILE_SECRET_KEY`.
+   - Public (build time): `PUBLIC_CONTACT_EMAIL` (mailto fallback, hidden if unset), `PUBLIC_TURNSTILE_SITE_KEY` (enables the widget).
+2. Run locally with `npx netlify dev` (serves Astro and the function together; plain `astro dev` does not run functions).
+3. Run the function logic tests with `npm test`.
+
+Limitation: the rate limiter is in-memory and per warm function instance, so it is best-effort. Enable Turnstile for stronger protection.
