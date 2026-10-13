@@ -62,9 +62,9 @@ export const homeCopy: Record<Lang, HomeCopy> = {
       label: 'Números',
       items: [
         { value: '7+', label: 'anos de experiência' },
+        { value: '1M+', label: 'usuários simultâneos (Getrak)' },
         { value: '5.000+', label: 'usuários simultâneos (SolarMarket)' },
         { value: '13.100+', label: 'ASOs gerados no meu próprio SaaS' },
-        { value: '~40%', label: 'carregamento de páginas mais rápido (Incubatech)' },
       ],
     },
     tech: {
@@ -131,9 +131,9 @@ export const homeCopy: Record<Lang, HomeCopy> = {
       label: 'Numbers',
       items: [
         { value: '7+', label: 'years of experience' },
+        { value: '1M+', label: 'concurrent users (Getrak)' },
         { value: '5,000+', label: 'concurrent users (SolarMarket)' },
         { value: '13,100+', label: 'occupational health certificates generated on my own SaaS' },
-        { value: '~40%', label: 'faster page loads (Incubatech)' },
       ],
     },
     tech: {
