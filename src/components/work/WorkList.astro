@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../Section.astro';
+import CaseCard from './CaseCard.astro';
+import { getWorkItems } from '../../lib/content';
+import type { Lang } from '../../i18n';
+import { s } from '../../lib/strings';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const items = await getWorkItems(lang);
+---
+
+<BaseLayout title={s(lang, 'work.title')} description={s(lang, 'work.description')} {lang}>
+  <Section pageTitle eyebrow={s(lang, 'work.eyebrow')} title={s(lang, 'work.title')} description={s(lang, 'work.description')}>
+    {
+      items.length === 0 ? (
+        <p>{s(lang, 'work.empty')}</p>
+      ) : (
+        <ul class="grid" role="list">
+          {items.map((item) => (
+            <CaseCard {item} {lang} />
+          ))}
+        </ul>
+      )
+    }
+  </Section>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-5);
+    padding: 0;
+    list-style: none;
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import ExperienceItem from './ExperienceItem.astro';
+import type { Position } from '../../data/experience-copy';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  positions: Position[];
+  lang: Lang;
+  labels: { current: string; viewCase: string; stack: string; impact: string; details: string };
+  compact?: boolean;
+}
+const { positions, lang, labels, compact } = Astro.props;
+---
+
+<ol role="list" class="timeline">
+  {positions.map((position, i) => <ExperienceItem {position} {lang} {labels} {compact} delay={i * 70} />)}
+</ol>
+
+<style>
+  .timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

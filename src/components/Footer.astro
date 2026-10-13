@@ -1,0 +1,113 @@
+---
+import Container from './Container.astro';
+import Icon from './Icon.astro';
+import { t, localizedPath, type Lang } from '../i18n';
+import { socialLinks } from '../data/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+const nav = [
+  ['home', ''],
+  ['about', 'about'],
+  ['experience', 'experience'],
+  ['work', 'work'],
+  ['blog', 'blog'],
+  ['contact', 'contact'],
+] as const;
+---
+
+<footer class="footer">
+  <Container>
+    <div class="top">
+      <div class="brand">
+        <a href={localizedPath(lang)} class="name">{t(lang, 'site.name')}</a>
+        <p>{t(lang, 'site.role')}</p>
+      </div>
+      <nav aria-label={t(lang, 'nav.main')}>
+        <ul role="list" class="links">
+          {nav.map(([key, path]) => <li><a href={localizedPath(lang, path)}>{t(lang, `nav.${key}`)}</a></li>)}
+        </ul>
+      </nav>
+      <ul role="list" class="social" aria-label={t(lang, 'footer.social')}>
+        {
+          socialLinks.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener noreferrer" class="social-link">
+                <Icon name={s.icon} size={20} />
+                <span class="sr-only">{s.label} {t(lang, 'common.opensNewTab')}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <p class="legal">© {year} {t(lang, 'site.name')}. {t(lang, 'footer.rights')}</p>
+  </Container>
+</footer>
+
+<style>
+  .footer {
+    border-top: var(--border);
+    padding-block: var(--space-7) var(--space-6);
+    margin-top: var(--section-gap);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+  .top {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+  }
+  @media (min-width: 48rem) {
+    .top {
+      grid-template-columns: 1.2fr 1.5fr auto;
+    }
+  }
+  .name {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    padding: 0;
+  }
+  .links a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .links a:hover {
+    color: var(--color-text);
+  }
+  .social {
+    display: flex;
+    gap: var(--space-2);
+    padding: 0;
+  }
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: var(--border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    transition: color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
+  }
+  .social-link:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+  }
+  .legal {
+    margin-top: var(--space-7);
+    color: var(--color-text-subtle);
+  }
+</style>

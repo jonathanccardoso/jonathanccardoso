@@ -1,0 +1,98 @@
+---
+import Section from '../Section.astro';
+import Button from '../Button.astro';
+import { homeCopy } from '../../data/home-copy';
+import { localizedPath, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = homeCopy[lang].product;
+---
+
+<Section id="product" eyebrow={c.eyebrow} title={c.title}>
+  <div class="panel" data-reveal>
+    <div class="intro">
+      <p class="text">{c.text}</p>
+      <p class="aso">{c.aso}</p>
+      <div class="actions">
+        <Button href={localizedPath(lang, 'work/aso360')} data-event="view_aso360_case">{c.case}</Button>
+        <Button href="https://aso360.com.br" variant="secondary" external data-event="visit_aso360">
+          {c.visit}
+          <span class="sr-only"> ({lang === 'pt' ? 'abre em nova aba' : 'opens in a new tab'})</span>
+        </Button>
+      </div>
+    </div>
+    <ul role="list" class="highlights">
+      {
+        c.highlights.map((h) => (
+          <li>
+            <h3>{h.title}</h3>
+            <p>{h.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <p class="note">{c.note}</p>
+</Section>
+
+<style>
+  .panel {
+    display: grid;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    background:
+      radial-gradient(30rem 16rem at 0% 0%, var(--color-accent-glow), transparent 70%), var(--color-surface);
+    border: var(--border-strong);
+    border-radius: var(--radius-lg);
+  }
+  .intro {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+    justify-items: start;
+  }
+  .text {
+    font-size: var(--text-lg);
+  }
+  .aso {
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+  .highlights {
+    display: grid;
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+  .highlights li {
+    display: grid;
+    gap: var(--space-1);
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--color-accent);
+  }
+  .highlights p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .note {
+    margin-top: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+  }
+  @media (min-width: 56rem) {
+    .panel {
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-8);
+      padding: var(--space-7);
+    }
+  }
+</style>

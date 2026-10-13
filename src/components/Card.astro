@@ -1,0 +1,69 @@
+---
+interface Props {
+  /** Makes the whole card a link (use for project/article cards). */
+  href?: string;
+  /** Heading level for the title slot-less usage. */
+  title?: string;
+  as?: 'article' | 'div' | 'li';
+  class?: string;
+}
+const { href, title, as: Tag = 'article', class: className } = Astro.props;
+---
+
+<Tag class:list={['card', { interactive: !!href }, className]}>
+  {
+    title && (
+      <h3 class="card-title">
+        {href ? (
+          <a href={href} class="card-link">
+            {title}
+          </a>
+        ) : (
+          title
+        )}
+      </h3>
+    )
+  }
+  <slot />
+</Tag>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-base) var(--ease-out), background var(--duration-base) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
+  }
+  .interactive:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+  }
+  .card-title {
+    font-size: var(--text-xl);
+  }
+  /* Stretched link: the entire card is clickable, focus ring shown on the card */
+  .card-link {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .card-link:focus-visible {
+    outline: none;
+  }
+  .card-link:focus-visible::after {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+</style>

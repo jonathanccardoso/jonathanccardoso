@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import { t, localizedPath, getLangFromUrl } from '../i18n';
+
+// Netlify serves /404.html for every unknown URL, so the language is unknown at build time.
+// Default language is used; the link below is bilingual-safe.
+const lang = getLangFromUrl(Astro.url);
+---
+
+<BaseLayout title={t(lang, 'notFound.title')} description={t(lang, 'notFound.description')} {lang} noindex alternates={{ pt: '/pt/', en: '/en/' }}>
+  <Section pageTitle eyebrow="404" title={t(lang, 'notFound.title')} description={t(lang, 'notFound.description')}>
+    <Button href={localizedPath(lang)}>{t(lang, 'notFound.cta')}</Button>
+  </Section>
+</BaseLayout>

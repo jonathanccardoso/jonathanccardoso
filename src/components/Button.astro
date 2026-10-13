@@ -1,0 +1,87 @@
+---
+interface Props {
+  /** Renders <a> when set, otherwise <button>. */
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'md' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
+  /** Opens in a new tab with rel="noopener noreferrer". */
+  external?: boolean;
+  class?: string;
+  /** Analytics event name. */
+  'data-event'?: string;
+}
+const { href, variant = 'primary', size = 'md', type = 'button', external = false, class: className, 'data-event': dataEvent } = Astro.props;
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      data-event={dataEvent}
+      class:list={['btn', variant, size, className]}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button type={type} data-event={dataEvent} class:list={['btn', variant, size, className]}>
+      <slot />
+    </button>
+  )
+}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    padding: 0 var(--space-5);
+    border: var(--border);
+    border-radius: var(--radius-md);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: background var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .lg {
+    min-height: 3.25rem;
+    padding: 0 var(--space-6);
+    font-size: var(--text-base);
+  }
+  .primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+  }
+  .primary:hover {
+    background: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    color: var(--color-accent-contrast);
+  }
+  .secondary {
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+  .secondary:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+  }
+  .ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--color-text-muted);
+  }
+  .ghost:hover {
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
+</style>

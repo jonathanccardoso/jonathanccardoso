@@ -1,0 +1,43 @@
+---
+import Section from '../Section.astro';
+import Button from '../Button.astro';
+import PostCard from '../blog/PostCard.astro';
+import { getBlogPosts } from '../../lib/content';
+import { homeCopy } from '../../data/home-copy';
+import { localizedPath, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = homeCopy[lang].blog;
+const posts = (await getBlogPosts(lang)).slice(0, 3);
+---
+
+{
+  posts.length > 0 && (
+    <Section id="blog" eyebrow={c.eyebrow} title={c.title} description={c.description}>
+      <ul role="list" class="grid" data-reveal>
+        {posts.map((post) => (
+          <PostCard {post} {lang} />
+        ))}
+      </ul>
+      <p class="more">
+        <Button href={localizedPath(lang, 'blog')} variant="secondary" data-event="view_all_posts">{c.cta}</Button>
+      </p>
+    </Section>
+  )
+}
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-5);
+    padding: 0;
+    list-style: none;
+  }
+  .more {
+    margin-top: var(--space-6);
+  }
+</style>

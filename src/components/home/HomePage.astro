@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Reveal from '../Reveal.astro';
+import ContactCta from '../ContactCta.astro';
+import Hero from './Hero.astro';
+import ProofStrip from './ProofStrip.astro';
+import TechStack from './TechStack.astro';
+import ExperienceHighlights from './ExperienceHighlights.astro';
+import SelectedWork from './SelectedWork.astro';
+import OwnProduct from './OwnProduct.astro';
+import LatestPosts from './LatestPosts.astro';
+import { homeCopy } from '../../data/home-copy';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = homeCopy[lang];
+---
+
+<BaseLayout title={c.title} description={c.description} {lang}>
+  <Hero {lang} />
+  <ProofStrip {lang} />
+  <TechStack {lang} />
+  <ExperienceHighlights {lang} />
+  <SelectedWork {lang} />
+  <OwnProduct {lang} />
+  <LatestPosts {lang} />
+  <ContactCta {lang} {...c.cta} />
+  <Reveal />
+</BaseLayout>

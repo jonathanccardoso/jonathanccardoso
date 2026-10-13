@@ -1,0 +1,59 @@
+---
+import Container from './Container.astro';
+
+interface Props {
+  id?: string;
+  /** Small label above the title (e.g. "Experience"). */
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  narrow?: boolean;
+  class?: string;
+  /** Render the title as the page's single <h1> (default <h2>). */
+  pageTitle?: boolean;
+}
+const { id, eyebrow, title, description, narrow, class: className, pageTitle } = Astro.props;
+const Heading = pageTitle ? 'h1' : 'h2';
+const headingId = id && title ? `${id}-title` : undefined;
+---
+
+<section id={id} aria-labelledby={headingId} class:list={['section', className]}>
+  <Container narrow={narrow}>
+    {
+      (eyebrow || title || description) && (
+        <header class="section-head">
+          {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+          {title && <Heading id={headingId} class:list={{ 'page-title': pageTitle }}>{title}</Heading>}
+          {description && <p class="lead">{description}</p>}
+        </header>
+      )
+    }
+    <slot />
+  </Container>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--section-gap);
+  }
+  .section-head {
+    display: grid;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+    max-width: 40rem;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .page-title {
+    font-size: var(--text-4xl);
+  }
+  .lead {
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+import Section from '../Section.astro';
+import Tag from '../Tag.astro';
+import { homeCopy } from '../../data/home-copy';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = homeCopy[lang].tech;
+---
+
+<Section id="tech" eyebrow={c.eyebrow} title={c.title} description={c.description}>
+  <ul role="list" class="groups">
+    {
+      c.groups.map((g, i) => (
+        <li class="group" data-reveal style={`--reveal-delay: ${(i % 3) * 70}ms`}>
+          <h3>{g.name}</h3>
+          <ul role="list" class="tags">
+            {g.items.map((x) => (
+              <li>
+                <Tag>{x}</Tag>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="ai" data-reveal>{c.ai}</p>
+</Section>
+
+<style>
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+  .group {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+  }
+  h3 {
+    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+  .ai {
+    margin-top: var(--space-5);
+    color: var(--color-text-muted);
+  }
+</style>

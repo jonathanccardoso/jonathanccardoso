@@ -1,0 +1,23 @@
+---
+interface Props {
+  /** Narrow reading width (articles, forms). */
+  narrow?: boolean;
+  as?: 'div' | 'section' | 'main' | 'header' | 'footer' | 'nav';
+  class?: string;
+}
+const { narrow = false, as: Tag = 'div', class: className } = Astro.props;
+---
+
+<Tag class:list={['container', { narrow }, className]}><slot /></Tag>
+
+<style>
+  .container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .narrow {
+    max-width: calc(var(--container-narrow) + var(--gutter) * 2);
+  }
+</style>

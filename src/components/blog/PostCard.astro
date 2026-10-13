@@ -1,0 +1,66 @@
+---
+import Card from '../Card.astro';
+import Tag from '../Tag.astro';
+import { entrySlug, formatDate, readingTime, type BlogPost } from '../../lib/content';
+import { localizedPath, type Lang } from '../../i18n';
+import { s } from '../../lib/strings';
+
+interface Props {
+  post: BlogPost;
+  lang: Lang;
+}
+const { post, lang } = Astro.props;
+const { title, description, pubDate, category, tags } = post.data;
+const href = localizedPath(post.data.lang, `blog/${entrySlug(post)}`);
+const foreign = post.data.lang !== lang;
+---
+
+<Card href={href} title={title} as="li">
+  <p class="meta">
+    <span class="category">{category}</span>
+    {foreign && <span class="lang-badge">{s(lang, post.data.lang === 'en' ? 'blog.inEnglish' : 'blog.inPortuguese')}</span>}
+    <time datetime={pubDate.toISOString()}>{formatDate(pubDate, lang)}</time>
+    <span>{readingTime(post.body)} {s(lang, 'blog.minRead')}</span>
+  </p>
+  <p class="desc">{description}</p>
+  {
+    tags.length > 0 && (
+      <ul class="tags" role="list" aria-label={s(lang, 'blog.tags')}>
+        {tags.map((tag) => (
+          <li>
+            <Tag>{tag}</Tag>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Card>
+
+<style>
+  .lang-badge {
+    border: 1px solid var(--color-border-input);
+    border-radius: var(--radius-full);
+    padding: 0 var(--space-2);
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+  .category {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+  }
+  .desc {
+    color: var(--color-text-muted);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+</style>

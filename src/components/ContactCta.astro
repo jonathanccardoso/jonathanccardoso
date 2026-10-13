@@ -1,0 +1,43 @@
+---
+import Container from './Container.astro';
+import Button from './Button.astro';
+import { localizedPath, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  text: string;
+  button: string;
+}
+const { lang, title, text, button } = Astro.props;
+---
+
+<section class="cta" aria-labelledby="cta-title">
+  <Container>
+    <div class="box" data-reveal>
+      <h2 id="cta-title">{title}</h2>
+      <p>{text}</p>
+      <Button href={localizedPath(lang, 'contact')} size="lg" data-event="contact_cta_footer">{button}</Button>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .cta {
+    padding-block: var(--section-gap);
+  }
+  .box {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    padding: var(--space-7) var(--space-6);
+    border: var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: radial-gradient(40rem 18rem at 100% 100%, var(--color-accent-glow), transparent 70%), var(--color-surface);
+  }
+  p {
+    max-width: 36rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+</style>

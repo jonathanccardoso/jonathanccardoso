@@ -1,0 +1,66 @@
+---
+import Container from '../Container.astro';
+import { homeCopy } from '../../data/home-copy';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = homeCopy[lang].proof;
+---
+
+<section aria-label={c.label} class="proof">
+  <Container>
+    <ul role="list" class="grid">
+      {
+        c.items.map((it, i) => (
+          <li data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+            <p class="value">{it.value}</p>
+            <p class="label">{it.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</section>
+
+<style>
+  .proof {
+    padding-block: var(--space-5);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    padding: 0;
+    list-style: none;
+    background: var(--color-border);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  li {
+    display: grid;
+    gap: var(--space-1);
+    align-content: start;
+    padding: var(--space-5);
+    background: var(--color-bg-elevated);
+  }
+  .value {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1;
+  }
+  .label {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  @media (min-width: 52rem) {
+    .grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

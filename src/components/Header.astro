@@ -1,0 +1,283 @@
+---
+import Container from './Container.astro';
+import Icon from './Icon.astro';
+import { t, localizedPath, stripLang, getAlternatePath, langs, languages, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  /** Path of the other-language version when slugs differ (e.g. blog posts). Defaults to swapping the prefix. */
+  alternates?: Partial<Record<Lang, string>>;
+}
+const { lang, alternates } = Astro.props;
+
+const nav = [
+  ['home', ''],
+  ['about', 'about'],
+  ['experience', 'experience'],
+  ['work', 'work'],
+  ['blog', 'blog'],
+  ['contact', 'contact'],
+] as const;
+
+const current = stripLang(Astro.url.pathname).replace(/^\/|\/$/g, '');
+const isCurrent = (path: string) => (path === '' ? current === '' : current === path || current.startsWith(path + '/'));
+const other = langs.filter((l) => l !== lang);
+---
+
+<header class="header">
+  <Container class="bar">
+    <a href={localizedPath(lang)} class="brand">{t(lang, 'site.name')}</a>
+
+    <button
+      type="button"
+      class="theme-toggle"
+      data-theme-toggle
+      aria-label={t(lang, 'theme.toLight')}
+      data-label-to-light={t(lang, 'theme.toLight')}
+      data-label-to-dark={t(lang, 'theme.toDark')}
+    >
+      <span class="icon-moon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+      </span>
+      <span class="icon-sun" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      data-menu-toggle
+      data-label-open={t(lang, 'nav.openMenu')}
+      data-label-close={t(lang, 'nav.closeMenu')}
+    >
+      <span class="sr-only" data-menu-label>{t(lang, 'nav.openMenu')}</span>
+      <span data-icon-open><Icon name="menu" size={24} /></span>
+      <span data-icon-close hidden><Icon name="close" size={24} /></span>
+    </button>
+
+    <div id="site-menu" class="menu" data-menu>
+      <nav aria-label={t(lang, 'nav.main')}>
+        <ul role="list" class="nav-list">
+          {
+            nav.map(([key, path]) => (
+              <li>
+                <a
+                  href={localizedPath(lang, path)}
+                  class="nav-link"
+                  aria-current={isCurrent(path) ? 'page' : undefined}
+                >
+                  {t(lang, `nav.${key}`)}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <ul role="list" class="lang" aria-label={t(lang, 'lang.switch')}>
+        {
+          other.map((l) => (
+            <li>
+              <a
+                href={alternates ? (alternates[l] ?? localizedPath(l, 'blog')) : getAlternatePath(Astro.url, l)}
+                hreflang={l}
+                lang={l}
+                class="lang-link"
+                aria-label={languages[l]}
+              >
+                {l.toUpperCase()}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</header>
+
+<script>
+  const themeBtn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  if (themeBtn) {
+    const root = document.documentElement;
+    const sync = () => {
+      const light = root.getAttribute('data-theme') === 'light';
+      // Label describes the action; the icon shows the current theme.
+      themeBtn.setAttribute('aria-label', (light ? themeBtn.dataset.labelToDark : themeBtn.dataset.labelToLight) ?? '');
+    };
+    sync();
+    themeBtn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', next === 'light' ? '#fafafa' : '#08090a');
+      try {
+        localStorage.setItem('theme', next);
+      } catch {
+        /* storage unavailable: choice applies for this page only */
+      }
+      sync();
+    });
+  }
+
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  if (toggle && menu) {
+    const iconOpen = toggle.querySelector<HTMLElement>('[data-icon-open]');
+    const iconClose = toggle.querySelector<HTMLElement>('[data-icon-close]');
+    const label = toggle.querySelector<HTMLElement>('[data-menu-label]');
+    const set = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      if (open) menu.setAttribute('data-open', '');
+      else menu.removeAttribute('data-open');
+      if (iconOpen) iconOpen.hidden = open;
+      if (iconClose) iconClose.hidden = !open;
+      if (label) label.textContent = (open ? toggle.dataset.labelClose : toggle.dataset.labelOpen) ?? '';
+    };
+    toggle.addEventListener('click', () => set(toggle.getAttribute('aria-expanded') !== 'true'));
+    menu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) set(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        set(false);
+        toggle.focus();
+      }
+    });
+    window.matchMedia('(min-width: 52rem)').addEventListener('change', (e) => e.matches && set(false));
+  }
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    background: var(--color-overlay);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: var(--border);
+  }
+  .header :global(.bar) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--header-height);
+    gap: var(--space-4);
+  }
+  .brand {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    background: transparent;
+    border: var(--border);
+    border-radius: var(--radius-md);
+  }
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-left: auto;
+    background: transparent;
+    color: var(--color-text);
+    border: var(--border);
+    border-radius: var(--radius-md);
+    transition: background var(--duration-fast) var(--ease-out);
+  }
+  .theme-toggle:hover {
+    background: var(--color-surface);
+  }
+  .theme-toggle .icon-sun {
+    display: none;
+  }
+  :global(:root[data-theme='light']) .theme-toggle .icon-moon {
+    display: none;
+  }
+  :global(:root[data-theme='light']) .theme-toggle .icon-sun {
+    display: inline-flex;
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .nav-list,
+  .lang {
+    display: flex;
+    gap: var(--space-1);
+    padding: 0;
+  }
+  .nav-link,
+  .lang-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 var(--space-3);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+  }
+  .nav-link:hover,
+  .lang-link:hover {
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
+  .nav-link[aria-current='page'] {
+    color: var(--color-text);
+  }
+  .lang-link {
+    border: var(--border);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  /* Mobile: panel under the header. Only hidden when JS is available (progressive enhancement). */
+  @media (max-width: 51.99rem) {
+    .menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: var(--space-4) var(--gutter) var(--space-5);
+      background: var(--color-bg-elevated);
+      border-bottom: var(--border);
+    }
+    .nav-list {
+      flex-direction: column;
+    }
+    :global(html.js) .menu:not([data-open]) {
+      display: none;
+    }
+  }
+  @media (min-width: 52rem) {
+    .menu-toggle {
+      display: none;
+    }
+    .theme-toggle {
+      order: 3;
+      margin-left: 0;
+    }
+    .menu {
+      order: 2;
+      margin-left: auto;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-5);
+    }
+  }
+</style>

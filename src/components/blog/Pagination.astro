@@ -1,0 +1,40 @@
+---
+import { localizedPath, type Lang } from '../../i18n';
+import { s } from '../../lib/strings';
+
+interface Props {
+  lang: Lang;
+  current: number;
+  total: number;
+  /** Base path without page segment, e.g. 'blog' or 'blog/tag/react'. */
+  base: string;
+}
+const { lang, current, total, base } = Astro.props;
+const pageHref = (n: number) => (n === 1 ? localizedPath(lang, base) : localizedPath(lang, `${base}/page/${n}`));
+---
+
+{
+  total > 1 && (
+    <nav class="pagination" aria-label={s(lang, 'blog.pagination')}>
+      {current > 1 ? <a href={pageHref(current - 1)} rel="prev">← {s(lang, 'blog.prev')}</a> : <span />}
+      <span class="status">
+        {s(lang, 'blog.page')} {current} / {total}
+      </span>
+      {current < total ? <a href={pageHref(current + 1)} rel="next">{s(lang, 'blog.next')} →</a> : <span />}
+    </nav>
+  )
+}
+
+<style>
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-7);
+  }
+  .status {
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+  }
+</style>

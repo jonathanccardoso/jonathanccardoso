@@ -1,0 +1,55 @@
+---
+import { langs, locales, getAlternatePath, stripLang, type Lang } from '../i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  /** Absolute or site-relative image for og:image. Defaults to /og-default.jpg. */
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  /** Override alternate-language paths when slugs differ per language: { pt: '/pt/blog/a/', en: '/en/blog/b/' }. Omit a lang if no translation exists. */
+  alternates?: Partial<Record<Lang, string>>;
+  /** ISO date, for articles. */
+  publishedTime?: string;
+  /** Absolute canonical URL override (e.g. the original publication of a cross-posted article). */
+  canonicalUrl?: string;
+}
+const { title, description, lang, image = '/og-default.jpg', type = 'website', noindex = false, alternates, publishedTime, canonicalUrl } =
+  Astro.props;
+
+const site = Astro.site ?? new URL('https://jonathanccardoso.netlify.app');
+const abs = (path: string) => new URL(path, site).href;
+const pageUrl = abs(Astro.url.pathname);
+const canonical = canonicalUrl ?? pageUrl;
+const imageUrl = abs(image);
+const alt: Partial<Record<Lang, string>> = alternates ?? Object.fromEntries(langs.map((l) => [l, getAlternatePath(Astro.url, l)]));
+const isRoutedPage = stripLang(Astro.url.pathname) !== Astro.url.pathname;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+{
+  isRoutedPage &&
+    langs.map((l) => alt[l] && <link rel="alternate" hreflang={locales[l].html} href={abs(alt[l]!)} />)
+}
+{isRoutedPage && <link rel="alternate" hreflang="x-default" href={abs(alt.pt ?? Astro.url.pathname)} />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Jonathan Cardoso" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={pageUrl} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:locale" content={locales[lang].og} />
+{langs.filter((l) => l !== lang && alt[l]).map((l) => <meta property="og:locale:alternate" content={locales[l].og} />)}
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />

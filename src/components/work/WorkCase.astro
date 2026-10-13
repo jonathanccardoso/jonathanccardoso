@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../Section.astro';
+import Tag from '../Tag.astro';
+import Button from '../Button.astro';
+import Prose from '../blog/Prose.astro';
+import { render } from 'astro:content';
+import { getAlternates, type WorkItem } from '../../lib/content';
+import { localizedPath, locales, type Lang } from '../../i18n';
+import { s, type StringKey } from '../../lib/strings';
+
+interface Props {
+  item: WorkItem;
+  lang: Lang;
+}
+const { item, lang } = Astro.props;
+const d = item.data;
+const { Content } = await render(item);
+const alternates = await getAlternates('work', item);
+const site = Astro.site ?? new URL('https://jonathanccardoso.netlify.app');
+const url = new URL(Astro.url.pathname, site).href;
+
+const sections = (['context', 'constraints', 'solution', 'decisions', 'results'] as const)
+  .filter((k) => d[k])
+  .map((k) => ({ key: k, label: s(lang, `work.${k}` as StringKey), text: d[k] as string }));
+
+const jsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': d.type === 'product' ? 'SoftwareApplication' : 'CreativeWork',
+  name: d.title,
+  description: d.summary,
+  inLanguage: locales[lang].html,
+  url,
+  author: { '@type': 'Person', name: 'Jonathan Cardoso', url: new URL(`/${lang}/`, site).href },
+  ...(d.type === 'product' ? { applicationCategory: 'BusinessApplication' } : {}),
+  ...(d.liveUrl ? { sameAs: d.liveUrl } : {}),
+  ...(d.stack.length ? { keywords: d.stack.join(', ') } : {}),
+};
+const facts = [
+  d.role && { label: s(lang, 'work.role'), value: d.role },
+  d.company && { label: s(lang, 'work.company'), value: d.company },
+  d.period && { label: s(lang, 'work.period'), value: d.period },
+].filter(Boolean) as { label: string; value: string }[];
+---
+
+<BaseLayout title={d.title} description={d.summary} {lang} {alternates}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <Section narrow>
+    <article>
+      <header class="head">
+        <p class="type">{s(lang, d.type === 'product' ? 'work.product' : 'work.employment')}</p>
+        <h1>{d.title}</h1>
+        <p class="lead">{d.summary}</p>
+        {
+          facts.length > 0 && (
+            <dl class="facts">
+              {facts.map((f) => (
+                <div>
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )
+        }
+        {
+          d.stack.length > 0 && (
+            <ul class="tags" role="list" aria-label={s(lang, 'work.stack')}>
+              {d.stack.map((x) => (
+                <li>
+                  <Tag>{x}</Tag>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+        {d.liveUrl && <div><Button href={d.liveUrl} external>{s(lang, 'work.visit')} ↗</Button></div>}
+      </header>
+
+      {
+        d.metrics && d.metrics.length > 0 && (
+          <section class="metrics" aria-label={s(lang, 'work.metrics')}>
+            <ul role="list">
+              {d.metrics.map((m) => (
+                <li>
+                  <strong>{m.value}</strong>
+                  <span>{m.label}</span>
+                </li>
+              ))}
+            </ul>
+            {d.metricsNote && <p class="note">{d.metricsNote}</p>}
+          </section>
+        )
+      }
+
+      <Prose><Content /></Prose>
+
+      {
+        sections.map((sec) => (
+          <section class="sec">
+            <h2>{sec.label}</h2>
+            <p>{sec.text}</p>
+          </section>
+        ))
+      }
+
+      <p class="back"><a href={localizedPath(lang, 'work')}>← {s(lang, 'work.back')}</a></p>
+    </article>
+  </Section>
+</BaseLayout>
+
+<style>
+  .head {
+    display: grid;
+    gap: var(--space-4);
+    margin-bottom: var(--space-7);
+    justify-items: start;
+  }
+  h1 {
+    font-size: var(--text-4xl);
+  }
+  .type {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+  .lead {
+    font-size: var(--text-xl);
+    color: var(--color-text-muted);
+  }
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-6);
+  }
+  .facts dt {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+  .facts dd {
+    margin: 0;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+  .metrics {
+    margin-bottom: var(--space-7);
+  }
+  .metrics ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+  .metrics li {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: var(--border);
+    border-radius: var(--radius-md);
+  }
+  .metrics strong {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    line-height: 1;
+  }
+  .metrics span,
+  .note {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .note {
+    margin-top: var(--space-3);
+  }
+  .sec {
+    margin-top: var(--space-7);
+  }
+  .sec h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-3);
+  }
+  .sec p {
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+  .back {
+    margin-top: var(--space-7);
+  }
+</style>

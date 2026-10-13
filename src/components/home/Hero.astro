@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../Container.astro';
+import Button from '../Button.astro';
+import profile from '../../assets/profile.jpeg';
+import { homeCopy, resumeHref } from '../../data/home-copy';
+import { localizedPath, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = homeCopy[lang].hero;
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <Container>
+    <div class="inner">
+      <div class="text">
+        <p class="eyebrow reveal">{c.eyebrow}</p>
+        <h1 id="hero-title" class="reveal" style="animation-delay: 60ms">{c.title}</h1>
+        <p class="subtitle reveal" style="animation-delay: 120ms">{c.subtitle}</p>
+        <div class="actions reveal" style="animation-delay: 180ms">
+          <Button href={localizedPath(lang, 'work')} size="lg" data-event="view_projects">{c.work}</Button>
+          {
+            resumeHref && (
+              <Button href={resumeHref} variant="secondary" size="lg" external data-event="download_resume">
+                {c.resume}
+              </Button>
+            )
+          }
+          <Button href={localizedPath(lang, 'contact')} variant="secondary" size="lg" data-event="contact_cta">
+            {c.contact}
+          </Button>
+        </div>
+      </div>
+      <div class="photo reveal" style="animation-delay: 160ms">
+        <Image src={profile} alt={c.photoAlt} width={320} height={320} loading="eager" densities={[1, 2]} />
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(3rem, 2rem + 6vw, 7rem) var(--section-gap);
+    overflow: hidden;
+    background:
+      radial-gradient(60rem 28rem at 15% -10%, var(--color-accent-glow), transparent 70%),
+      linear-gradient(to bottom, transparent 70%, var(--color-bg));
+  }
+  .inner {
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+  }
+  .text {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  h1 {
+    font-size: var(--text-5xl);
+    max-width: 16ch;
+  }
+  .subtitle {
+    max-width: 40rem;
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .photo {
+    justify-self: start;
+    width: 7.5rem;
+  }
+  .photo :global(img) {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-glow);
+  }
+  @media (min-width: 56rem) {
+    .inner {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-9);
+    }
+    .photo {
+      width: 15rem;
+      justify-self: end;
+    }
+  }
+  @media (max-width: 30rem) {
+    .actions :global(.btn) {
+      flex: 1 1 100%;
+    }
+  }
+</style>
