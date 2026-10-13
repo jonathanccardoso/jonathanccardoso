@@ -13,7 +13,7 @@ interface Props {
   lang: Lang;
 }
 const { post, lang } = Astro.props;
-const { title, description, pubDate, updatedDate, category, tags, heroImage } = post.data;
+const { title, description, pubDate, updatedDate, category, tags, heroImage, canonicalUrl } = post.data;
 const { Content } = await render(post);
 const alternates = await getAlternates('blog', post);
 const site = Astro.site ?? new URL('https://jonathanccardoso.netlify.app');
@@ -36,7 +36,7 @@ const jsonLd = {
 };
 ---
 
-<BaseLayout {title} {description} {lang} {alternates} type="article" image={heroImage} publishedTime={pubDate.toISOString()}>
+<BaseLayout {title} {description} {lang} {alternates} type="article" image={heroImage} publishedTime={pubDate.toISOString()} {canonicalUrl}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
   <Section narrow>
     <article>
@@ -63,6 +63,11 @@ const jsonLd = {
           )
         }
       </header>
+      {canonicalUrl && (
+        <p class="origin">
+          {s(lang, 'blog.originallyPublished')} <a href={canonicalUrl} rel="noopener">dev.to</a>
+        </p>
+      )}
       <Prose><Content /></Prose>
       {Object.keys(alternates).length < 2 && <p class="note">{s(lang, 'blog.notTranslated')}</p>}
       <p class="back"><a href={localizedPath(lang, 'blog')}>← {s(lang, 'blog.allPosts')}</a></p>
@@ -100,6 +105,11 @@ const jsonLd = {
     gap: var(--space-2);
     padding: 0;
     list-style: none;
+  }
+  .origin {
+    margin-bottom: var(--space-6);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
   }
   .note {
     margin-top: var(--space-7);

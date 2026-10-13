@@ -96,7 +96,7 @@ for (const [url, { html, file }] of pages) {
   if (descs.length !== 1) fail(url, `expected one meta description, found ${descs.length}`);
   const canon = tags(html, 'link').filter((t) => attr(t, 'rel') === 'canonical');
   if (canon.length !== 1) fail(url, `expected one canonical, found ${canon.length}`);
-  else if (url !== '/404.html' && !url.startsWith('/404') && attr(canon[0], 'href') !== SITE + url) fail(url, `canonical ${attr(canon[0], 'href')} != ${SITE + url}`);
+  else if (url !== '/404.html' && !url.startsWith('/404') && !/^https:\/\/dev\.to\//.test(attr(canon[0], 'href') ?? '') && attr(canon[0], 'href') !== SITE + url) fail(url, `canonical ${attr(canon[0], 'href')} != ${SITE + url}`);
 
   const lang = attr(html.match(/<html\b[^>]*>/i)?.[0] ?? '', 'lang');
   const expected = url.startsWith('/en/') ? 'en' : 'pt-BR';
@@ -105,7 +105,8 @@ for (const [url, { html, file }] of pages) {
 
   for (const img of tags(html, 'img')) {
     if (attr(img, 'alt') === null) fail(url, `img without alt: ${img.slice(0, 80)}`);
-    if (!attr(img, 'width') || !attr(img, 'height')) fail(url, `img without width/height: ${img.slice(0, 80)}`);
+    // Remote (cross-posted) images have unknown dimensions; only local ones must declare them.
+    if (!/^https?:/.test(attr(img, 'src') ?? '') && (!attr(img, 'width') || !attr(img, 'height'))) fail(url, `img without width/height: ${img.slice(0, 80)}`);
   }
 
   // hreflang reciprocity

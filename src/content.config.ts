@@ -17,6 +17,8 @@ const blog = defineCollection({
     translationKey: z.string().optional(),
     draft: z.boolean().default(false),
     heroImage: z.string().optional(),
+    /** Original URL when the article was first published elsewhere (e.g. dev.to); used as rel=canonical. */
+    canonicalUrl: z.string().url().optional(),
   }),
 });
 

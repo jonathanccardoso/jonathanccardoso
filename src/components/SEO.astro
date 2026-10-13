@@ -13,13 +13,16 @@ interface Props {
   alternates?: Partial<Record<Lang, string>>;
   /** ISO date, for articles. */
   publishedTime?: string;
+  /** Absolute canonical URL override (e.g. the original publication of a cross-posted article). */
+  canonicalUrl?: string;
 }
-const { title, description, lang, image = '/og-default.jpg', type = 'website', noindex = false, alternates, publishedTime } =
+const { title, description, lang, image = '/og-default.jpg', type = 'website', noindex = false, alternates, publishedTime, canonicalUrl } =
   Astro.props;
 
 const site = Astro.site ?? new URL('https://jonathanccardoso.netlify.app');
 const abs = (path: string) => new URL(path, site).href;
-const canonical = abs(Astro.url.pathname);
+const pageUrl = abs(Astro.url.pathname);
+const canonical = canonicalUrl ?? pageUrl;
 const imageUrl = abs(image);
 const alt: Partial<Record<Lang, string>> = alternates ?? Object.fromEntries(langs.map((l) => [l, getAlternatePath(Astro.url, l)]));
 const isRoutedPage = stripLang(Astro.url.pathname) !== Astro.url.pathname;
@@ -40,7 +43,7 @@ const isRoutedPage = stripLang(Astro.url.pathname) !== Astro.url.pathname;
 <meta property="og:site_name" content="Jonathan Cardoso" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:url" content={canonical} />
+<meta property="og:url" content={pageUrl} />
 <meta property="og:image" content={imageUrl} />
 <meta property="og:locale" content={locales[lang].og} />
 {langs.filter((l) => l !== lang && alt[l]).map((l) => <meta property="og:locale:alternate" content={locales[l].og} />)}
