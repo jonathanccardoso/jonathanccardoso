@@ -8,14 +8,17 @@ interface Props {
   /** Opens in a new tab with rel="noopener noreferrer". */
   external?: boolean;
   class?: string;
+  /** Analytics event name. */
+  'data-event'?: string;
 }
-const { href, variant = 'primary', size = 'md', type = 'button', external = false, class: className } = Astro.props;
+const { href, variant = 'primary', size = 'md', type = 'button', external = false, class: className, 'data-event': dataEvent } = Astro.props;
 ---
 
 {
   href ? (
     <a
       href={href}
+      data-event={dataEvent}
       class:list={['btn', variant, size, className]}
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
@@ -23,7 +26,7 @@ const { href, variant = 'primary', size = 'md', type = 'button', external = fals
       <slot />
     </a>
   ) : (
-    <button type={type} class:list={['btn', variant, size, className]}>
+    <button type={type} data-event={dataEvent} class:list={['btn', variant, size, className]}>
       <slot />
     </button>
   )

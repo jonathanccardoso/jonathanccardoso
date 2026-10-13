@@ -1,0 +1,153 @@
+---
+import Tag from '../Tag.astro';
+import { entrySlug, type WorkItem } from '../../lib/content';
+import { localizedPath, type Lang } from '../../i18n';
+
+interface Props {
+  item: WorkItem;
+  lang: Lang;
+  current?: boolean;
+  currentLabel: string;
+  viewCase: string;
+  /** Hides stack and metrics (home highlights). */
+  compact?: boolean;
+  delay?: number;
+}
+const { item, lang, current = false, currentLabel, viewCase, compact = false, delay = 0 } = Astro.props;
+const { title, summary, period, metrics, stack, role } = item.data;
+const href = localizedPath(lang, `work/${entrySlug(item)}`);
+---
+
+<li class:list={['item', { current }]} data-reveal style={`--reveal-delay: ${delay}ms`}>
+  <article>
+    <header class="head">
+      <h3>{title}</h3>
+      {current && <span class="badge">{currentLabel}</span>}
+      {period && <p class="period">{period}</p>}
+    </header>
+    {role && <p class="role">{role}</p>}
+    <p class="summary">{summary}</p>
+    {
+      !compact && metrics && metrics.length > 0 && (
+        <ul role="list" class="metrics">
+          {metrics.map((m) => (
+            <li>
+              <strong>{m.value}</strong> <span>{m.label}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    {
+      !compact && stack.length > 0 && (
+        <ul role="list" class="tags">
+          {stack.map((x) => (
+            <li>
+              <Tag>{x}</Tag>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <a class="more" href={href}>{viewCase}<span class="sr-only">: {title}</span> <span aria-hidden="true">→</span></a>
+  </article>
+</li>
+
+<style>
+  .item {
+    position: relative;
+    list-style: none;
+    padding: 0 0 var(--space-6) var(--space-6);
+    border-left: var(--border);
+    margin-left: var(--space-2);
+  }
+  .item:last-child {
+    padding-bottom: 0;
+  }
+  .item::before {
+    content: '';
+    position: absolute;
+    left: -0.3125rem;
+    top: 0.5rem;
+    width: 0.5625rem;
+    height: 0.5625rem;
+    border-radius: var(--radius-full);
+    background: var(--color-border-strong);
+  }
+  .current::before {
+    background: var(--color-accent);
+    box-shadow: 0 0 0 4px var(--color-accent-soft);
+  }
+  article {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-base) var(--ease-out), background var(--duration-base) var(--ease-out);
+  }
+  article:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-surface-hover);
+  }
+  .current article {
+    border-color: var(--color-accent);
+    background: linear-gradient(135deg, var(--color-accent-soft), var(--color-surface) 60%);
+  }
+  .current h3 {
+    font-size: var(--text-2xl);
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+  }
+  .badge {
+    padding: 0 var(--space-3);
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+    color: var(--color-accent-contrast);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+  }
+  .period,
+  .role {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+  .summary {
+    color: var(--color-text-muted);
+  }
+  .metrics,
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    padding: 0;
+    list-style: none;
+  }
+  .tags {
+    gap: var(--space-2);
+  }
+  .metrics strong {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+  }
+  .metrics span {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .more {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+  }
+  .more:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../Section.astro';
+import Container from '../Container.astro';
+import Button from '../Button.astro';
+import Tag from '../Tag.astro';
+import Reveal from '../Reveal.astro';
+import { aboutCopy } from '../../data/about-copy';
+import { localizedPath, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = aboutCopy[lang];
+---
+
+<BaseLayout title={c.title} description={c.description} {lang}>
+  <Section eyebrow={c.eyebrow} title={c.heading} description={c.lead} class="intro">
+    <h2 class="sub" data-reveal>{c.summary.title}</h2>
+    <div class="prose" data-reveal>
+      {c.summary.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+  </Section>
+
+  <Section id="trajectory" title={c.trajectory.title}>
+    <ol role="list" class="timeline">
+      {
+        c.trajectory.items.map((it, i) => (
+          <li data-reveal style={`--reveal-delay: ${i * 60}ms`}>
+            <span class="year">{it.year}</span>
+            <p>{it.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Section id="philosophy" title={c.philosophy.title}>
+    <ul role="list" class="cards">
+      {
+        c.philosophy.items.map((it, i) => (
+          <li class="card" data-reveal style={`--reveal-delay: ${(i % 2) * 70}ms`}>
+            <h3>{it.title}</h3>
+            <p>{it.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="architecture" title={c.architecture.title}>
+    <div class="prose" data-reveal>
+      {c.architecture.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+    <ul role="list" class="tags" data-reveal>
+      {c.architecture.tags.map((x) => <li><Tag>{x}</Tag></li>)}
+    </ul>
+  </Section>
+
+  <Section id="product" title={c.product.title}>
+    <div class="prose" data-reveal>
+      <p>{c.product.text}</p>
+    </div>
+  </Section>
+
+  <section class="end">
+    <Container>
+      <div class="box" data-reveal>
+        <p>{c.cta.text}</p>
+        <div class="actions">
+          <Button href={localizedPath(lang, 'experience')} data-event="about_view_experience">{c.cta.experience}</Button>
+          <Button href={localizedPath(lang, 'contact')} variant="secondary" data-event="about_contact">{c.cta.contact}</Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+  <Reveal />
+</BaseLayout>
+
+<style>
+  .prose {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--container-narrow);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+  .sub {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+  }
+  .timeline {
+    display: grid;
+    gap: var(--space-4);
+    padding: 0;
+    margin-left: var(--space-2);
+    border-left: var(--border);
+    list-style: none;
+  }
+  .timeline li {
+    position: relative;
+    display: grid;
+    gap: var(--space-1);
+    padding-left: var(--space-6);
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -0.3125rem;
+    top: 0.5rem;
+    width: 0.5625rem;
+    height: 0.5625rem;
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+  }
+  .year {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+  }
+  .timeline p {
+    color: var(--color-text-muted);
+    max-width: 44rem;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+  .card {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-base) var(--ease-out);
+  }
+  .card:hover {
+    border-color: var(--color-border-strong);
+  }
+  .card p {
+    color: var(--color-text-muted);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    margin-top: var(--space-5);
+    list-style: none;
+  }
+  .end {
+    padding-bottom: var(--section-gap);
+  }
+  .box {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    padding: var(--space-6);
+    border: var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    font-size: var(--text-lg);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  :global(.intro) {
+    padding-bottom: calc(var(--section-gap) / 2);
+  }
+</style>

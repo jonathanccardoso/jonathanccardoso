@@ -1,0 +1,29 @@
+---
+import Section from '../Section.astro';
+import Button from '../Button.astro';
+import Timeline from '../experience/Timeline.astro';
+import { getWorkItems } from '../../lib/content';
+import { homeCopy } from '../../data/home-copy';
+import { localizedPath, type Lang } from '../../i18n';
+import { experienceCopy } from '../../data/experience-copy';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = homeCopy[lang].experience;
+const items = (await getWorkItems(lang)).filter((i) => i.data.type === 'employment');
+---
+
+<Section id="experience" eyebrow={c.eyebrow} title={c.title} description={c.description}>
+  <Timeline {items} {lang} currentLabel={c.current} viewCase={experienceCopy[lang].viewCase} compact />
+  <p class="more" data-reveal>
+    <Button href={localizedPath(lang, 'experience')} variant="secondary" data-event="view_experience">{c.cta}</Button>
+  </p>
+</Section>
+
+<style>
+  .more {
+    margin-top: var(--space-6);
+  }
+</style>

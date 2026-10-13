@@ -1,0 +1,38 @@
+---
+import ExperienceItem from './ExperienceItem.astro';
+import type { WorkItem } from '../../lib/content';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  items: WorkItem[];
+  lang: Lang;
+  currentLabel: string;
+  viewCase: string;
+  compact?: boolean;
+}
+const { items, lang, currentLabel, viewCase, compact } = Astro.props;
+---
+
+<ol role="list" class="timeline">
+  {
+    items.map((item, i) => (
+      <ExperienceItem
+        {item}
+        {lang}
+        {currentLabel}
+        {viewCase}
+        {compact}
+        current={item.data.translationKey === 'getrak'}
+        delay={i * 70}
+      />
+    ))
+  }
+</ol>
+
+<style>
+  .timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

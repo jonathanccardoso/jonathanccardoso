@@ -1,0 +1,56 @@
+---
+import Section from '../Section.astro';
+import Button from '../Button.astro';
+import CaseCard from '../work/CaseCard.astro';
+import { getWorkItems } from '../../lib/content';
+import { homeCopy } from '../../data/home-copy';
+import { localizedPath, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const c = homeCopy[lang].work;
+const items = (await getWorkItems(lang)).filter((i) => i.data.featured);
+---
+
+{
+  items.length > 0 && (
+    <Section id="work" eyebrow={c.eyebrow} title={c.title} description={c.description}>
+      <ul role="list" class="grid" data-reveal>
+        {items.map((item) => (
+          <CaseCard {item} {lang} />
+        ))}
+      </ul>
+      <p class="more">
+        <Button href={localizedPath(lang, 'work')} variant="secondary" data-event="view_all_projects">{c.cta}</Button>
+      </p>
+    </Section>
+  )
+}
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: var(--space-5);
+    padding: 0;
+    list-style: none;
+  }
+  /* ASO360 (first by `order`) is highlighted */
+  @media (min-width: 60rem) {
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .grid > :global(li:first-child) {
+      grid-column: span 2;
+    }
+  }
+  .grid > :global(li:first-child) {
+    border-color: var(--color-accent);
+    background: linear-gradient(135deg, var(--color-accent-soft), var(--color-surface) 60%);
+  }
+  .more {
+    margin-top: var(--space-6);
+  }
+</style>
