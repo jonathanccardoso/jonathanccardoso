@@ -76,6 +76,11 @@ export function createRateLimiter({ max, windowMs }: { max: number; windowMs: nu
       entry.count += 1;
       return entry.count > max;
     },
+    /** Gives one attempt back (e.g. when sending failed for a reason that is not the visitor's fault). */
+    release(key: string): void {
+      const entry = hits.get(key);
+      if (entry && entry.count > 0) entry.count -= 1;
+    },
   };
 }
 

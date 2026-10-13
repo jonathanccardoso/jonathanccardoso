@@ -41,14 +41,18 @@ async function sendResend(
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
+  if (!res.ok) {
+    // Log Resend's reason (status + message only, never the key) to make misconfiguration visible in Netlify logs.
+    const detail = await res.text().catch(() => '');
+    console.error('contact: resend rejected', res.status, detail.slice(0, 300));
+  }
   return res.ok;
 }
 
 export const handler: Handler = async (event: HandlerEvent) => {
   if (event.httpMethod !== 'POST') return json(405, { ok: false, error: 'method_not_allowed' });
 
-  const ip = event.headers['x-nf-client-connection-ip'] ?? event.headers['x-forwarded-for']?.split(',')[0]?.trim() ?? 'unknown';
-  if (limiter.isLimited(ip)) return json(429, { ok: false, error: 'rate_limited' });
+  const ip = event.headers['x-nf-client-connection-ip'] ?? event.headers['x-forwarded-for']?.split(',')[0]?.trim() ?? '';
 
   let body: unknown;
   try {
@@ -64,10 +68,19 @@ export const handler: Handler = async (event: HandlerEvent) => {
     return json(400, { ok: false, error: result.error });
   }
 
+  // Count only valid submissions, so typos and bots hitting validation never lock a visitor out.
+  // Without a client IP there is nothing to key on: skip limiting rather than share one bucket.
+  const limited = ip !== '' && limiter.isLimited(ip);
+  if (limited) return json(429, { ok: false, error: 'rate_limited' });
+  const giveBack = () => {
+    if (ip !== '') limiter.release(ip);
+  };
+
   const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
   if (turnstileSecret) {
     const token = (body as Record<string, unknown>).turnstileToken;
     if (!(await verifyTurnstile(turnstileSecret, token, ip))) {
+      giveBack();
       return json(400, { ok: false, error: 'captcha_failed' });
     }
   }
@@ -77,13 +90,17 @@ export const handler: Handler = async (event: HandlerEvent) => {
   const from = process.env.CONTACT_FROM_EMAIL;
   if (!apiKey || !to || !from) {
     console.error('contact: missing RESEND_API_KEY / CONTACT_TO_EMAIL / CONTACT_FROM_EMAIL');
+    giveBack();
     return json(500, { ok: false, error: 'not_configured' });
   }
 
   try {
     const mail = buildNotificationEmail(result.data);
     const sent = await sendResend(apiKey, { from, to: [to], reply_to: result.data.email, ...mail });
-    if (!sent) return json(502, { ok: false, error: 'send_failed' });
+    if (!sent) {
+      giveBack();
+      return json(502, { ok: false, error: 'send_failed' });
+    }
 
     if (process.env.CONTACT_AUTOREPLY === 'true') {
       // Best-effort: failure of the auto-reply must not fail the request.
@@ -92,6 +109,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     return json(200, { ok: true });
   } catch (err) {
     console.error('contact: send error', err instanceof Error ? err.message : 'unknown');
+    giveBack();
     return json(502, { ok: false, error: 'send_failed' });
   }
 };

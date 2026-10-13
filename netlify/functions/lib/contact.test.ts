@@ -57,6 +57,15 @@ test('rate limiter blocks after max within window and resets after', () => {
   assert.equal(rl.isLimited('1.1.1.1', 1500), false);
 });
 
+test('rate limiter release gives an attempt back', () => {
+  const rl = createRateLimiter({ max: 1, windowMs: 1000 });
+  assert.equal(rl.isLimited('1.1.1.1', 0), false);
+  rl.release('1.1.1.1');
+  assert.equal(rl.isLimited('1.1.1.1', 10), false);
+  assert.equal(rl.isLimited('1.1.1.1', 20), true);
+  rl.release('unknown-key'); // no-op, must not throw
+});
+
 test('buildNotificationEmail escapes user input in html', () => {
   const m = buildNotificationEmail({ name: '<b>x</b>', email: 'a@b.co', company: '', message: '<img src=x onerror=1>\nline2' });
   assert.ok(!m.html.includes('<b>x</b>'));
